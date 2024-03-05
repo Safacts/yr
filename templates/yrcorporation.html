@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YR Corporation - Your One-Stop Shop</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ecf6fe, #fcf6e0);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            animation: flow 5s infinite alternate;
+        }
+        
+        @keyframes flow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .nav {
+            background-image: linear-gradient(to left, #ecf6fe, #fcf6e0);
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        
+        .nav ul li a {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #111010;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .nav ul li a:hover {
+            background-color: #adb5bd;
+            color: #fff;
+        }
+
+        .show-spacer {
+            height: 450px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            position: relative;
+        }
+
+        .greeting-and-search {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            text-align: center;
+            width: 45%;
+        }
+
+        .greeting {
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        .welcome-text {
+            font-size: 2.5rem;
+            margin-right: 0.5rem;
+            /* Add the following properties to create the typing effect */
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 0.15em solid #333;
+            animation: typing 3s steps(30, end), blink 0.5s step-end infinite;
+        }
+
+        /* Define the keyframes for the typing animation */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Define the keyframes for the blinking cursor animation */
+        @keyframes blink {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #333;
+            }
+        }
+
+        /* Add the following style for the span element inside the greeting */
+        .greeting span:before {
+            /* Use the before pseudo-element to set the initial word */
+            content: "Hello";
+            /* Use the animation property to set the duration, delay, iteration count and name of the animation */
+            animation: 3s change-word infinite;
+        }
+
+        /* Define the keyframes for the changing word animation */
+        @keyframes change-word {
+            /* Use percentages to specify the different words and colors */
+            0% {
+                content: "Hello";
+                color: #333;
+            }
+            25% {
+                content: "Welcome";
+                color: #f00;
+            }
+            50% {
+                content: "Bonjour";
+                color: #0f0;
+            }
+            75% {
+                content: "Namaste";
+                color: #00f;
+            }
+            100% {
+                content: "Hello";
+                color: #333;
+            }
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-bar {
+            width: 80%;
+            padding: 12px 24px;
+            font-size: 1.4rem;
+            font-family: 'Pacifico', cursive;
+            border: none;
+            border-radius: 50px;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .search-bar:focus {
+            outline:none; 
+            box-shadow: 0 0 15px rgb(206, 227, 233);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-button i {
+            font-size: 1.6rem;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 90%;
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+
+            .search-button i {
+                font-size: 1.4rem;
+            }
+        }
+        
+        .content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+            width: 250px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            text-align: center;
+            position: relative;
+            animation: flow 5s infinite alternate;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);        
+        }
+
+        .product-card img {
+            max-width: 100%;
+            margin-bottom: 10px;
+            border-radius: 50%;
+            border: 5px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-info h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        .product-info p {
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .product-info button {
+            background: linear-gradient(135deg, #333, #666);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .product-info button:hover {
+            background: linear-gradient(135deg, #666, #999);
+        }
+        
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        /* Add the top image */
+        .product-card.with-top-image:: {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('{% static 'img/cute cart.png' %}');
+            background-size: cover;
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        /* Add pure white background spacer */
+        .spacer {
+            background-color: #fff;
+            height: 300px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        /* Adjusted CSS for image container */
+        .show-spacer.with-image {
+            position: relative;
+            width: calc(100% - 300px);
+            padding-right: 300px;
+        }
+
+        .show-spacer.with-image .image-container {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 80%; /* Adjust width as needed */
+            max-width: 400px; /* Increased maximum width for the image */
+            height: auto;
+            z-index: -1;
+        }
+
+        .show-spacer.with-image .additional-image {
+            width: 100%;
+            height: auto;
+            border-top-right-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src={% static 'img/yr logo.png' %} alt="YR Corporation Logo" class="logo">
+        <h1>Welcome to YR Corporation</h1>
+    </header>
+    
+    <div class="nav">
+        <div class="nav-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="show-spacer with-image">
+        <div class="greeting-and-search">
+            <h2 class="greeting">
+                <span class="welcome-text"></span> to our Keychain Collection!
+            </h2>
+            <div class="search-container">
+                <input type="text" id="search-bar" class="search-bar" placeholder="Search for keychains...">
+                <button type="submit" id="search-button" class="search-button"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="{% static 'img/cute cart.png' %}" alt="Additional Image" class="additional-image">
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="products">
+            <h2>Featured Products</h2>
+            
+            <div class="product-card with-top-image">
+                <img src="product1.jpg" alt="Product 1">
+                <div class="product-info">
+                    <h3>Product 1</h3>
+                    <p>Product description or details go here.</p>
+                    <p>$19.99</p>
+                    <button class="add-to-cart-button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="product2.jpg" alt="Product 2">
+                <div class="product-info">
+                    <h3>Product 2</h3>
+                    <p>Product description or details go here.</p>
+                    <p>$24.99</p>
+                    <button class="add-to-cart-button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="product3.jpg" alt="Product 3">
+                <div class="product-info">
+                    <h3>Product 3</h3>
+                    <p>Product description or details go here.</p>
+                    <p>$29.99</p>
+                    <button class="add-to-cart-button">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="spacer"></div>
+    
+    <footer class="footer">
+        &copy; 2024 YR Corporation. All rights reserved.
+    </footer>
+</body>
+</html>
