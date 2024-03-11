@@ -241,19 +241,18 @@
             position: relative;
             animation: flow 5s infinite alternate;
         }
+
+        .product-card img {
+            max-width: 100%;
+            margin-bottom: 10px;
+            /* Remove border-radius to give a rectangular look 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+        }
         
         .product-card:hover {
             transform: translateY(-5px);        
         }
 
-        .product-card img {
-            max-width: 100%;
-            margin-bottom: 10px;
-            border-radius: 50%;
-            border: 5px solid #333;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        
         .product-info h3 {
             margin: 0;
             font-size: 1.5rem;
@@ -374,7 +373,7 @@
             <h2>Featured Products</h2>
             
             <div class="product-card with-top-image">
-                <img src="product1.jpg" alt="Product 1">
+                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
                 <div class="product-info">
                     <h3>Product 1</h3>
                     <p>Product description or details go here.</p>
@@ -412,4 +411,3 @@
     </footer>
 </body>
 </html>
-<!--get back here if got any issue in adding  product images->
