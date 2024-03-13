@@ -240,11 +240,14 @@
             text-align: center;
             position: relative;
             animation: flow 5s infinite alternate;
+            height: 540px;
         }
 
         .product-card img {
             max-width: 100%;
+            height: 370px;
             margin-bottom: 10px;
+            object-fit: contain;
             /* Remove border-radius to give a rectangular look 
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
         }
@@ -253,8 +256,15 @@
             transform: translateY(-5px);        
         }
 
+        .product-info {
+            padding: 0px; /* Responsible for product description height adjustment */
+            text-align: center;
+            height: 150px; /* Fixed height for product info */
+          }
+
         .product-info h3 {
             margin: 0;
+            margin-bottom: 5px;
             font-size: 1.5rem;
             color: #333;
         }
@@ -272,7 +282,12 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            position: absolute; /* Added for button positioning */
+            bottom: 15px; /* Move button up from bottom edge */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for button's width */
         }
+        
         
         .product-info button:hover {
             background: linear-gradient(135deg, #666, #999);
@@ -315,6 +330,12 @@
             width: calc(100% - 300px);
             padding-right: 300px;
         }
+
+
+
+
+
+        
 
         .show-spacer.with-image .image-container {
             position: absolute;
@@ -371,36 +392,39 @@
     <div class="content">
         <section class="products">
             <h2>Featured Products</h2>
-            
-            <div class="product-card with-top-image">
+                    
+            <div class="product-card">
                 <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
                 <div class="product-info">
-                    <h3>Product 1</h3>
-                    <p>Product description or details go here.</p>
-                    <p>$19.99</p>
-                    <button class="add-to-cart-button">Add to Cart</button>
+                <h3>Honda keychain 🚙</h3>
+                <p>Buy the keychains with least price on internet ✨ </p>
+                <p><h3>&#8377;15</h6></p>
+                <button class="add-to-cart-button">OrdeR</button>
                 </div>
             </div>
             
+           
             <div class="product-card">
-                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg?t=2024-03-11T20%3A05%3A27.012Z" alt="Product 2">
+                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg" alt="Product 1">
                 <div class="product-info">
-                    <h3>Product 2</h3>
-                    <p>Product description or details go here.</p>
-                    <p>$24.99</p>
-                    <button class="add-to-cart-button">Add to Cart</button>
+                <h3>I💖MOM</h3>
+                <p>We are waiting for your Order <br>(❁´◡`❁)</p>
+                <p><h3>&#8377;15</h6></p>
+                <button class="add-to-cart-button">OrdeR</button>
                 </div>
             </div>
             
+            
             <div class="product-card">
-                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg?t=2024-03-11T20%3A07%3A23.464Z" alt="Product 3">
+                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg" alt="Product 1">
                 <div class="product-info">
-                    <h3>Product 3</h3>
-                    <p>Product description or details go here.</p>
-                    <p>$29.99</p>
-                    <button class="add-to-cart-button">Add to Cart</button>
+                <h3>Jai Shre Shyam 🪈🦚</h3>
+                <p>Place your Order now on Wattsapp/call 💫</p>
+                <p><h3>&#8377;15</h6></p>
+                <button class="add-to-cart-button">OrdeR</button>
                 </div>
             </div>
+            
         </section>
     </div>
     
