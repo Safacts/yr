@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+  
+      .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Adjusted to display 3 cards per row */
+        padding: 20px;
+        margin-bottom: 50px;
+      }
+      
+      .product-card {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: calc(23% - 20px);
+        margin: 1%;
+        animation: fade-in 1s ease-out both;
+        position: relative; /* Added for button positioning */
+        height: 540px; /* Fixed height for product cards */
+      }
+  
+      .product-card img {
+        width: 100%;
+        height: 390px; /* Fixed height for images */
+        object-fit: contain; /* Ensures images cover the space without stretching */
+      }
+  
+      .product-info {
+        padding: 35px; /* Responsible for product description height adjustment */
+        text-align: left;
+        height: 150px; /* Fixed height for product info */
+      }
+  
+      .product-info h3 {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-size: 1.3rem;
+        color: #333;
+      }
+  
+      .product-info p {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+  
+      .product-info button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: absolute; /* Added for button positioning */
+        bottom: 15px; /* Move button up from bottom edge */
+        right: 15px; /* Adjust horizontal position if needed */
+      }
+  
+      .product-info button:hover {
+        background-color: #444;
+      }
+  
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+<body>
+  <div class="products">
+
+    
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg?t=2024-03-12T13%3A15%3A01.067Z" alt="Product 1">
+        <div class="product-info">
+          <h3>Product 1</h3>
+          <p>Product description or details go here.</p>
+          <p><p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T01%3A53%3A34.198Z" alt="Product 2">
+          <div class="product-info">
+            <h3>Product 2</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T01%3A38%3A28.682Z" alt="Product 2">
+        <div class="product-info">
+          <h3>Product 3</h3>
+          <p>New product description or details go here.</p>
+          <p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+     </div>
+ 
+
+  
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg?t=2024-03-12T13%3A15%3A01.067Z" alt="Product 1">
+        <div class="product-info">
+          <h3>Product 4</h3>
+          <p>Product description or details go here.</p>
+          <p><p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T01%3A53%3A34.198Z" alt="Product 2">
+          <div class="product-info">
+            <h3>Product 5</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T01%3A38%3A28.682Z" alt="Product 2">
+        <div class="product-info">
+          <h3>Product 6</h3>
+          <p>New product description or details go here.</p>
+          <p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+
+    
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg?t=2024-03-12T13%3A15%3A01.067Z" alt="Product 1">
+        <div class="product-info">
+          <h3>Product 7</h3>
+          <p>Product description or details go here.</p>
+          <p><p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T01%3A53%3A34.198Z" alt="Product 2">
+          <div class="product-info">
+            <h3>Product 8</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T01%3A38%3A28.682Z" alt="Product 2">
+        <div class="product-info">
+          <h3>Product 9</h3>
+          <p>New product description or details go here.</p>
+          <p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+     </div>
+   
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg?t=2024-03-12T13%3A15%3A01.067Z" alt="Product 1">
+        <div class="product-info">
+          <h3>Product 10</h3>
+          <p>Product description or details go here.</p>
+          <p><p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T01%3A53%3A34.198Z" alt="Product 2">
+          <div class="product-info">
+            <h3>Product 11</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T01%3A38%3A28.682Z" alt="Product 2">
+        <div class="product-info">
+          <h3>Product 12</h3>
+          <p>New product description or details go here.</p>
+          <p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+
+
+  
+    
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg?t=2024-03-12T13%3A15%3A01.067Z" alt="Product 1">
+        <div class="product-info">
+          <h3>Product 13</h3>
+          <p>Product description or details go here.</p>
+          <p><p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T01%3A53%3A34.198Z" alt="Product 2">
+          <div class="product-info">
+            <h3>Product 14</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T01%3A38%3A28.682Z" alt="Product 2">
+        <div class="product-info">
+          <h3>Product 15</h3>
+          <p>New product description or details go here.</p>
+          <p>&#8377;15</p>
+          <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+     </div>
+   
+
+  </div>
+
+
+</body>
+</html>
