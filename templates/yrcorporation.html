@@ -389,6 +389,7 @@
         </div>
     </div>
 
+    
     <div class="content">
         <section class="products">
             <h2>Featured Products</h2>
@@ -399,7 +400,8 @@
                 <h3>Honda keychain 🚙</h3>
                 <p>Buy the keychains with least price on internet ✨ </p>
                 <p><h3>&#8377;15</h6></p>
-                <button class="add-to-cart-button">OrdeR</button>
+               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+916304562779')">Order</button>
+
                 </div>
             </div>
             
@@ -410,7 +412,8 @@
                 <h3>I💖MOM</h3>
                 <p>We are waiting for your Order <br>(❁´◡`❁)</p>
                 <p><h3>&#8377;18 </h6></p>
-                <button class="add-to-cart-button">OrdeR</button>
+               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+916304562779')">Order</button>
+
                 </div>
             </div>
             
@@ -421,17 +424,31 @@
                 <h3>Jai Shre Shyam 🪈🦚</h3>
                 <p>Place your Order now on Wattsapp/call 💫</p>
                 <p><h3>&#8377;15</h6></p>
-                <button class="add-to-cart-button">OrdeR</button>
+               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+916304562779')">Order</button>
+
                 </div>
             </div>
             
         </section>
     </div>
+   
+    
     
     <div class="spacer"></div>
     
     <footer class="footer">
         &copy; 2024 YR Corporation. All rights reserved.
     </footer>
+
+    <script>
+        function redirectToWhatsApp(phoneNumber) {
+            // Construct the WhatsApp URL with your phone number
+            var whatsappURL = 'https://wa.me/' + phoneNumber;
+            
+            // Open the WhatsApp URL in a new tab
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+    
 </body>
 </html>
