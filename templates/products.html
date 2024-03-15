@@ -258,6 +258,14 @@
 
   </div>
 
-
+<script>
+        function redirectToWhatsApp(phoneNumber) {
+            // Construct the WhatsApp URL with your phone number
+            var whatsappURL = 'https://wa.me/' + phoneNumber;
+            
+            // Open the WhatsApp URL in a new tab
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
 </body>
 </html>
