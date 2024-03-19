@@ -1,271 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <style>
-      body {
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-  
-      .products {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between; /* Adjusted to display 3 cards per row */
-        padding: 20px;
-        margin-bottom: 50px;
-      }
-      
-      .product-card {
-        background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: calc(23% - 20px);
-        margin: 1%;
-        animation: fade-in 1s ease-out both;
-        position: relative; /* Added for button positioning */
-        height: 540px; /* Fixed height for product cards */
-      }
-  
-      .product-card img {
-        width: 100%;
-        height: 390px; /* Fixed height for images */
-        object-fit: contain; /* Ensures images cover the space without stretching */
-      }
-  
-      .product-info {
-        padding: 35px; /* Responsible for product description height adjustment */
-        text-align: left;
-        height: 150px; /* Fixed height for product info */
-      }
-  
-      .product-info h3 {
-        margin-top: 0;
-        margin-bottom: 5px;
-        font-size: 1.3rem;
-        color: #333;
-      }
-  
-      .product-info p {
-        margin: 0;
-        color: #666;
-        font-size: 0.9rem;
-      }
-  
-      .product-info button {
-        background-color: #333;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        position: absolute; /* Added for button positioning */
-        bottom: 15px; /* Move button up from bottom edge */
-        right: 15px; /* Adjust horizontal position if needed */
-      }
-  
-      .product-info button:hover {
-        background-color: #444;
-      }
-  
-      @keyframes fade-in {
-        0% {
-          opacity: 0;
-          transform: translateY(20px);
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
-  </head>
-<body>
-  <div class="products">
 
-    
-      <div class="product-card">
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;  /* Adjusted to display 3 cards per row */
+            padding: 20px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: calc(23% - 20px);
+            margin: 1%;
+            animation: fade-in 1s ease-out both;
+            position: relative; /* Added for button positioning */
+            height: 540px; /* Fixed height for product cards */
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 390px; /* Fixed height for images */
+            object-fit: contain; /* Ensures images cover the space without stretching */
+        }
+
+        .product-info {
+            padding: 35px; /* Responsible for product description height adjustment */
+            text-align: left;
+            height: 150px; /* Fixed height for product info */
+        }
+
+        .product-info h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+            color: #333;
+        }
+
+        .product-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-info button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute; /* Added for button positioning */
+            bottom: 15px; /* Move button up from bottom edge */
+            right: 15px; /* Adjust horizontal position if needed */
+        }
+
+        .product-info button:hover {
+            background-color: #444;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="products">
+    <div class="product-card">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
         <div class="product-info">
-          <h3>Product 1</h3>
-          <p>Product description or details go here.</p>
-          <p><p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <h3>Product 1</h3>
+            <p>Product description or details go here.</p>
+            <p>&#8377;15</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
-      </div>
-      
-      <div class="product-card">
-          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/drive%20safe.jpg?t=2024-03-13T03%3A46%3A24.543Z" alt="Product 2">
-          <div class="product-info">
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/drive%20safe.jpg?t=2024-03-13T03%3A46%3A24.543Z" alt="Product 2">
+        <div class="product-info">
             <h3>Product 2</h3>
             <p>New product description or details go here.</p>
             <p>&#8377;18</p>
-                          <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-          </div>
-      </div>
-
-
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T03%3A46%3A46.829Z" alt="Product 2">
-        <div class="product-info">
-          <h3>Product 3</h3>
-          <p>New product description or details go here.</p>
-          <p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
-     </div>
- 
+    </div>
 
-  
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T03%3A47%3A08.761Z" alt="Product 1">
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T03%3A46%3A46.829Z" alt="Product 3">
         <div class="product-info">
-          <h3>Product 4</h3>
-          <p>Product description or details go here.</p>
-          <p><p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <h3>product 3</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
-      </div>
-      
-      <div class="product-card">
-          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg?t=2024-03-13T03%3A47%3A30.469Z" alt="Product 2">
-          <div class="product-info">
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T03%3A47%3A08.761Z" alt="product 4">
+        <div class="product-info">
+            <h3>Product 4</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg?t=2024-03-13T03%3A47%3A30.469Z" alt="Product 5">
+        <div class="product-info">
             <h3>Product 5</h3>
             <p>New product description or details go here.</p>
             <p>&#8377;18</p>
-                           <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-          </div>
-      </div>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
 
-
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20papa.jpg?t=2024-03-13T03%3A48%3A12.401Z" alt="Product 2">
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20papa.jpg?t=2024-03-13T03%3A48%3A12.401Z" alt="Product 6">
         <div class="product-info">
-          <h3>Product 6</h3>
-          <p>New product description or details go here.</p>
-          <p>&#8377;18</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <h3>Product 6</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+    
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shaym%20silver.jpg?t=2024-03-13T03%3A48%3A27.899Z" alt="Product 7">
+        <div class="product-info">
+            <h3>Product 7</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+    
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg?t=2024-03-13T03%3A48%3A38.419Z" alt="Product 8">
+        <div class="product-info">
+            <h3>Product 8</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/key.jpg?t=2024-03-13T03%3A48%3A53.720Z" alt="Product 9">
+        <div class="product-info">
+            <h3>Product 9</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mahindra%20old.jpg?t=2024-03-13T03%3A49%3A07.105Z" alt="Product 10">
+        <div class="product-info">
+            <h3>Product 10</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mercedes.jpg?t=2024-03-13T03%3A49%3A20.448Z" alt="Product 11">
+        <div class="product-info">
+            <h3>Product 11</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shaym.jpg?t=2024-03-13T03%3A50%3A16.988Z" alt="Product 12">
+        <div class="product-info">
+            <h3>Product 12</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
     </div>
 
     
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shaym%20silver.jpg?t=2024-03-13T03%3A48%3A27.899Z" alt="Product 1">
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 13">
         <div class="product-info">
-          <h3>Product 7</h3>
-          <p>Product description or details go here.</p>
-          <p><p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-        </div>
-      </div>
-      
-      <div class="product-card">
-          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg?t=2024-03-13T03%3A48%3A38.419Z" alt="Product 2">
-          <div class="product-info">
-            <h3>Product 8</h3>
+            <h3>Product 13</h3>
             <p>New product description or details go here.</p>
-            <p>&#8377;15</p>
-                           <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-          </div>
-      </div>
-
-
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/key.jpg?t=2024-03-13T03%3A48%3A53.720Z" alt="Product 2">
-        <div class="product-info">
-          <h3>Product 9</h3>
-          <p>New product description or details go here.</p>
-          <p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
-     </div>
-   
+    </div>
 
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mahindra%20old.jpg?t=2024-03-13T03%3A49%3A07.105Z" alt="Product 1">
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 14">
         <div class="product-info">
-          <h3>Product 10</h3>
-          <p>Product description or details go here.</p>
-          <p><p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-        </div>
-      </div>
-      
-      <div class="product-card">
-          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mercedes.jpg?t=2024-03-13T03%3A49%3A20.448Z" alt="Product 2">
-          <div class="product-info">
-            <h3>Product 11</h3>
-            <p>New product description or details go here.</p>
-            <p>&#8377;15</p>
-                           <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-          </div>
-      </div>
-
-
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shaym.jpg?t=2024-03-13T03%3A50%3A16.988Z" alt="Product 2">
-        <div class="product-info">
-          <h3>Product 12</h3>
-          <p>New product description or details go here.</p>
-          <p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-        </div>
-
-
-  
-    
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 1">
-        <div class="product-info">
-          <h3>Product 13</h3>
-          <p>Product description or details go here.</p>
-          <p><p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-        </div>
-      </div>
-      
-      <div class="product-card">
-          <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 2">
-          <div class="product-info">
             <h3>Product 14</h3>
             <p>New product description or details go here.</p>
-            <p>&#8377;15</p>
-                           <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-          </div>
-      </div>
-
-
-      <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/toyota.jpg?t=2024-03-13T03%3A51%3A06.762Z" alt="Product 2">
-        <div class="product-info">
-          <h3>Product 15</h3>
-          <p>New product description or details go here.</p>
-          <p>&#8377;15</p>
-                         <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
         </div>
-     </div>
-   
+    </div>
 
-  </div>
+    <div class="product-card">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/toyota.jpg?t=2024-03-13T03%3A51%3A06.762Z" alt="Product 15">
+        <div class="product-info">
+            <h3>Product 15</h3>
+            <p>New product description or details go here.</p>
+            <p>&#8377;18</p>
+            <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+        </div>
+    </div>
+
+
+    <!-- Repeat the above product card structure for all your products -->
+</div>
 
 <script>
-        function redirectToWhatsApp(phoneNumber) {
-            // Construct the WhatsApp URL with your phone number
-            var whatsappURL = 'https://wa.me/' + phoneNumber;
-            
-            // Open the WhatsApp URL in a new tab
-            window.open(whatsappURL, '_blank');
-        }
-    </script>
+    function redirectToWhatsApp(phoneNumber) {
+        // Construct the WhatsApp URL with your phone number
+        var whatsappURL = 'https://wa.me/' + phoneNumber;
+
+        // Open the WhatsApp URL in a new tab
+        window.open(whatsappURL, '_blank');
+    }
+</script>
 </body>
 </html>
