@@ -88,6 +88,26 @@
                 transform: translateY(0);
             }
         }
+
+        
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Query for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .product-card {
+                width: calc(100% - 20px);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -224,7 +244,7 @@
     </div>
 
     <div class="product-card">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 14">
+        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/wolswagon%202.jpg" alt="Product 14">
         <div class="product-info">
             <h3>Product 14</h3>
             <p>New product description or details go here.</p>
