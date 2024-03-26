@@ -106,7 +106,37 @@
             .product-card {
                 width: calc(100% - 20px);
             }
+
+            /* Add pure white background spacer */
+            .spacer {
+                background-color: #b2beb5;
+                height: 100px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
         }
+
+
+        
+        
+        /* Add pure white background spacer */
+        .spacer {
+            background-color: #b2beb5;
+            height: 300px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
 
     </style>
 </head>
@@ -266,6 +296,12 @@
 
     <!-- Repeat the above product card structure for all your products -->
 </div>
+
+<div class="spacer"></div>
+
+<footer class="footer">
+    &copy; 2024 YR Corporation. All rights reserved.
+</footer>
 
 <script>
     function redirectToWhatsApp(phoneNumber) {
