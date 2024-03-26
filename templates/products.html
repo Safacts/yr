@@ -101,20 +101,7 @@
             }
         }
 
-        /* Media Query for mobile devices */
-        @media only screen and (max-width: 768px) {
-            .product-card {
-                width: calc(100% - 20px);
-            }
-
-            /* Add pure white background spacer */
-            .spacer {
-                background-color: #b2beb5;
-                height: 100px;
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
-        }
+       
 
 
         
@@ -125,6 +112,7 @@
             height: 300px;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.6);
         }
 
         
@@ -137,7 +125,7 @@
             font-size: 0.9rem;
         }
 
-.spacer {
+        .spacer {
             background-color: #fff;
             height: 300px;
             border-top-left-radius: 20px;
@@ -181,6 +169,96 @@
             margin: 0 10px; /* Add margin between images */
             object-fit: contain; /* Ensure the entire image is visible within the specified dimensions */
         }
+
+        /* Media Query for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .product-card {
+                width: calc(100% - 20px);
+            }
+
+            /* Add pure white background spacer */
+            .spacer {
+                background-color: #b2beb5;
+                height: 100px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+
+            /* newly added <<<<<<<<<<<<<<< */
+
+          
+
+            .spacer {
+                background-color: #fff;
+                height: 150px; /* Adjust the height to accommodate the .msg div */
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.7);
+            }
+    
+            .msg {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: -35px;
+                left: 1%;
+                width: 100%;
+                height: 100%;
+                font-size: 16px; /* Set the font size to 14px */
+            }
+
+
+            .soc-med {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                justify-content: center; /* Align images at the center horizontally */
+                align-items: center; /* Align images at the center vertically */
+            }
+            
+           
+            .wat-img {
+                width: auto; /* Set the width to auto to maintain aspect ratio */
+              
+                height: 53px; /* Set the height of all images */
+                margin: 0 0px; /* Add margin between images */
+                object-fit: contain; /* Ensure the entire image is visible within the specified dimensions */
+            }
+            
+            .insta-img {
+                width: auto; /* Set the width to auto to maintain aspect ratio */
+                height: 32px; /* Set the height of all images */
+                margin: 0 10px; /* Add margin between images */
+                object-fit: contain; /* Ensure the entire image is visible within the specified dimensions */
+            }
+            
+            .x-img {
+                width: auto; /* Set the width to auto to maintain aspect ratio */
+                height: 47px; /* Set the height of all images */
+                margin: 0 10px; /* Add margin between images */
+                object-fit: contain; /* Ensure the entire image is visible within the specified dimensions */
+            }
+    
+            .amazon-img {
+                width: auto; /* Set the width to auto to maintain aspect ratio */
+                height: 40px; /* Set the height of all images */
+                margin: 0 10px; /* Add margin between images */
+                object-fit: contain; /* Ensure the entire image is visible within the specified dimensions */
+            }
+
+
+
+
+
+        }
+
 
 
     </style>
@@ -250,7 +328,7 @@
     <div class="product-card">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shaym%20silver.jpg?t=2024-03-13T03%3A48%3A27.899Z" alt="Product 7">
         <div class="product-info">
-            <h3>JAI SHRE SHYAM!💫🪈</h3>
+            <h3>JAI SHRE SHYAM!💫</h3>
             <p>New product description or details go here.</p>
             <p><h3>&#8377;18 </h6></p>
             <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
@@ -321,7 +399,7 @@
     <div class="product-card">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/wolswagon%202.jpg" alt="Product 14">
         <div class="product-info">
-            <h3>Wolks Wagon logo 🚙🚨</h3>
+            <h3>WolksWagon logo🚙</h3>
             <p>New product description or details go here.</p>
             <p><h3>&#8377;18 </h6></p>
             <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
@@ -331,7 +409,7 @@
     <div class="product-card">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/toyota.jpg?t=2024-03-13T03%3A51%3A06.762Z" alt="Product 15">
         <div class="product-info">
-            <h3>Toyota key🔗 🗝️🔐 🚙</h3>
+            <h3>Toyota key🔗🗝️🔐 🚙</h3>
             <p>New product description or details go here.</p>
             <p><h3>&#8377;18 </h6></p>
             <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
