@@ -478,6 +478,35 @@
         window.open(whatsappURL, '_blank');
     }
 
+    window.onload = function() {
+        var productCards = document.getElementsByClassName('product-card');
+    
+        for (var i = 0; i < productCards.length; i++) {
+            var productCard = productCards[i];
+            var title = productCard.querySelector('h3').innerText;
+            var description = productCard.querySelector('p').innerText;
+            var price = productCard.querySelector('h3').nextElementSibling.innerText;
+            var imageUrl = productCard.querySelector('img').src;
+    
+            var jsonLd = document.createElement('script');
+            jsonLd.type = 'application/ld+json';
+            jsonLd.text = JSON.stringify({
+                "@context": "http://schema.org",
+                "@type": "Product",
+                "name": title,
+                "image": imageUrl,
+                "description": description,
+                "offers": {
+                    "@type": "Offer",
+                    "price": price,
+                    "priceCurrency": "INR"
+                }
+            });
+    
+            productCard.appendChild(jsonLd);
+        }
+    }
+    
 </script>
 </body>
 </html>
