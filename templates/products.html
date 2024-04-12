@@ -375,10 +375,11 @@
         </div>
     </div>
 
-       <div class="product-card" id="product12" data-replace-emoji="true">
+    
+       <div class="product-card" id="product12" data-replace-emoji="false">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shaym.jpg?t=2024-03-13T03%3A50%3A16.988Z" alt="Product 12">
         <div class="product-info">
-            <h3>Shree Shyam 🦚💖<h3>
+            <h3>Shree Shyam 🦚💖</h3>
             <p>New product description or details go here.</p>
             <p><h3>&#8377;15 </h6></p>
             <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070', 'product12')">Order</button>
@@ -386,7 +387,7 @@
     </div>
 
     
-       <div class="product-card" id="product13" data-replace-emoji="true">
+    <div class="product-card" id="product13" data-replace-emoji="false">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 13">
         <div class="product-info">
             <h3>shre shyam devaya💖</h3>
@@ -450,18 +451,23 @@
         
         // Get the product details
         var productName = productCard.querySelector('h3').innerText;
+        var productDescription = productCard.querySelector('p').innerText;
+        
         // Check if the emojis should be replaced
         if (productCard.dataset.replaceEmoji === "true") {
             // Replace emojis with their alternative texts
             productName = replaceEmojisWithAltText(productName);
+            productDescription = replaceEmojisWithAltText(productDescription);
         }
-        productName = productName.replace(/[\p{Emoji}]/gu, '');
         
-        // Trim spaces before adding asterisks for bold formatting
+        productName = productName.replace(/[\p{Emoji}]/gu, '');
         productName = productName.trim();
         productName = '*' + productName + '*';
         
-        var productDescription = '_*' + productCard.querySelector('p').innerText + '*_';
+        productDescription = productDescription.replace(/[\p{Emoji}]/gu, '');
+        productDescription = productDescription.trim();
+        productDescription = '_*' + productDescription + '*_';
+        
         var productPrice = "Price: " + '*' + productCard.querySelector('p + h3').innerText + '*';
         var productImageURL = productCard.querySelector('img').src;
     
@@ -492,7 +498,7 @@
         // Replace each sequence of repeated emojis in the text with its alternative text
         for (var emoji in emojiAltTextMapping) {
             var altText = emojiAltTextMapping[emoji];
-            var regex = new RegExp(emoji + '+',);
+            var regex = new RegExp(emoji + '+', );
             text = text.replace(regex, altText);
         }
         
