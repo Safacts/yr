@@ -620,37 +620,36 @@
         <section class="products">
             <h2>Featured Products</h2>
                     
-            <div class="product-card">
+            <div class="product-card" id="product1" data-replace-emoji="true">
                 <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
                 <div class="product-info">
                 <h3>Honda keychain 🚙</h3>
                 <p>Buy the keychains with least price on internet ✨ </p>
                 <p><h3>&#8377;15</h6></p>
-               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070', 'product1')">Order</button>
 
                 </div>
             </div>
             
            
-            <div class="product-card">
-                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg" alt="Product 1">
+            <div class="product-card" id="product2" data-replace-emoji="true">
+                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg" alt="Product 2">
                 <div class="product-info">
                 <h3>I💖MOM</h3>
                 <p>We are waiting for your Order <br>(❁´◡`❁)</p>
                 <p><h3>&#8377;24 </h6></p>
-               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
-
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070', 'product2')">Order</button>
                 </div>
             </div>
             
             
-            <div class="product-card">
-                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg" alt="Product 1">
+            <div class="product-card" id="product3" data-replace-emoji="true">
+                <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg" alt="Product 3">
                 <div class="product-info">
                 <h3>Jai Shre Shyam🪈🦚</h3>
                 <p>Place your Order now on Wattsapp/call 💫</p>
                 <p><h3>&#8377;15</h6></p>
-               <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070')">Order</button>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+917982803070', 'product3')">Order</button>
 
                 </div>
             </div>
@@ -697,12 +696,67 @@
     </script>
 
     <script>
-        function redirectToWhatsApp(phoneNumber) {
-            // Construct the WhatsApp URL with your phone number
-            var whatsappURL = 'https://wa.me/' + phoneNumber;
+        function redirectToWhatsApp(phoneNumber, productId) {
+            // Define the product card element
+            var productCard = document.getElementById(productId);
+            
+            // Get the product details
+            var productName = productCard.querySelector('h3').innerText;
+            var productDescription = productCard.querySelector('p').innerText;
+            
+            // Check if the emojis should be replaced
+            if (productCard.dataset.replaceEmoji === "true") {
+                // Replace emojis with their alternative texts
+                productName = replaceEmojisWithAltText(productName);
+                productDescription = replaceEmojisWithAltText(productDescription);
+            }
+            
+            productName = productName.replace(/[\p{Emoji}]/gu, '');
+            productName = productName.trim();
+            productName = '*' + productName + '*';
+            
+            productDescription = productDescription.replace(/[\p{Emoji}]/gu, '');
+            productDescription = productDescription.trim();
+            productDescription = '_*' + productDescription + '*_';
+            
+            var productPrice = "Price: " + '*' + productCard.querySelector('p + h3').innerText + '*';
+            var productImageURL = productCard.querySelector('img').src;
+        
+            // Construct the message with product details and image
+            var message = "I would like to order the following product:\n" +
+                          productName + "\n" +
+                          productDescription + "\n" +
+                          productPrice + "\n" +
+                          productImageURL;
+            
+            // Encode the message for URL using encodeURIComponent function
+            var encodedMessage = encodeURIComponent(message);
+        
+            // Construct the WhatsApp URL with pre-filled message
+            var whatsappURL = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
             
             // Open the WhatsApp URL in a new tab
             window.open(whatsappURL, '_blank');
+        }
+        
+        function replaceEmojisWithAltText(text) {
+            // Define a mapping of emojis and their alternative texts
+            var emojiAltTextMapping = {
+                '💖': ' love ',
+                // Add more mappings here as needed
+            };
+            
+            // Replace each sequence of repeated emojis in the text with its alternative text
+            for (var emoji in emojiAltTextMapping) {
+                var altText = emojiAltTextMapping[emoji];
+                var regex = new RegExp(emoji + '+', );
+                text = text.replace(regex, altText);
+            }
+            
+            // Remove extra spaces
+            text = text.replace(/\s+/g, ' ').trim();
+            
+            return text;
         }
     </script>
     
