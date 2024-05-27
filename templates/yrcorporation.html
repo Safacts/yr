@@ -617,7 +617,7 @@
 
     
     <div class="content">
-        <section class="products">
+        <section class="products" id="productContainer">
             <h2>Featured Products</h2>
                     
             <div class="product-card" id="product1" data-replace-emoji="true">
@@ -765,61 +765,54 @@
                 return text;
             }
 
+           
+            var originalProducts = document.getElementById('productContainer').innerHTML;
+
             document.addEventListener('DOMContentLoaded', function() {
-                // Get the search bar element
+                // Add event listener to the search bar
                 var searchBar = document.getElementById('search-bar');
-            
-                // Add an event listener to the search bar
-                searchBar.addEventListener('keyup', function(e) {
-                    // Get the search term in uppercase
-                    var searchTerm = e.target.value.toUpperCase();
-            
-                    // Get all the product cards
-                    var productCards = document.getElementsByClassName('product-card');
-            
-                    // Loop through the product cards
-                    for (var i = 0; i < productCards.length; i++) {
-                        // Get the text content of the product card
-                        var productText = productCards[i].textContent || productCards[i].innerText;
-            
-                        // Check if the product text includes the search term
-                        if (productText.toUpperCase().indexOf(searchTerm) > -1) {
-                            productCards[i].style.display = ''; // Show the product card
-                        } else {
-                            productCards[i].style.display = 'none'; // Hide the product card
-                        }
-                    }
-                });
+                searchBar.addEventListener('keyup', searchProducts);
             });
 
             function searchProducts() {
                 var input = document.getElementById('search-bar');
-                var filter = input.value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', '/search/?q=' + encodeURIComponent(filter), true);
-                xhr.onload = function() {
-                    if (this.status == 200) {
-                        var results = JSON.parse(this.responseText);
-                        displayResults(results);
-                    }
-                };
-                xhr.send();
-            }
-            
-            function displayResults(products) {
-                var productContainer = document.getElementById('products-container');
-                productContainer.innerHTML = ''; // Clear current products
-                products.forEach(function(product) {
-                    // Create and append new product cards
-                    var card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = '<h3>' + product.name + '</h3><p>' + product.description + '</p>';
-                    productContainer.appendChild(card);
-                });
-            }
-            
-            
+                var filter = input.value.toUpperCase();
 
+                if (filter === '') {
+                    // If the search bar is cleared, restore the original products
+                    document.getElementById('productContainer').innerHTML = originalProducts;
+                } else {
+                    // Fetch 'products.html' and filter products on search
+                    fetch('templates/products.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            var parser = new DOMParser();
+                            var productsDoc = parser.parseFromString(data, 'text/html');
+                            var productCards = productsDoc.getElementsByClassName('product-card');
+
+                            // Clear current product cards on 'yrcorporation.html'
+                            var productContainer = document.getElementById('productContainer');
+                            productContainer.innerHTML = '';
+
+                            // Loop through the product cards
+                            for (var i = 0; i < productCards.length; i++) {
+                                // Get the text content of the product card
+                                var productText = productCards[i].textContent || productCards[i].innerText;
+
+                                // Check if the product text includes the search term
+                                if (productText.toUpperCase().indexOf(filter) > -1) {
+                                    // Clone the product card and append it to 'productContainer' on 'yrcorporation.html'
+                                    var clonedCard = productCards[i].cloneNode(true);
+                                    productContainer.appendChild(clonedCard);
+                                }
+                            }
+                        });
+                }
+            }
+
+            
+            
+o            
             
             
         </script>
