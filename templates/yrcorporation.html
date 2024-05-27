@@ -681,6 +681,12 @@
     
     <footer class="footer">
         &copy; 2024 YR Corporation. All rights reserved.
+        <p>
+        {% if view_count > 0 %}
+        Page Views: {{ view_count }}
+        {% else %}
+        Welcome! Be the first to view this page.
+        {% endif %}
     </footer>
 
     <script>
