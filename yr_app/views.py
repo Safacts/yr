@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
-from .models import PageView
+from .models import PageView , Product
 
 
 
@@ -19,6 +19,15 @@ def homepage(request):
     context = {'view_count': view_count}
     
     return render(request, 'yrcorporation.html', context)
+
+
+
+def search(request):
+    query = request.GET.get('q', '')
+    products = Product.objects.filter(name__icontains=query).values('name', 'description', 'price', 'image_url')
+    return JsonResponse(list(products), safe=False)
+
+
 
 def products(request):
     return render(request,"products.html")

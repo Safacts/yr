@@ -605,7 +605,7 @@
                 <span class="welcome-text"></span> to our Keychain Collection!
             </h2>
             <div class="search-container">
-                <input type="text" id="search-bar" class="search-bar" placeholder="Search for keychains...">
+                <input type="text" id="search-bar" class="search-bar" placeholder="Search for keychains..." onkeyup="searchProducts()">
                 <button type="submit" id="search-button" class="search-button"><i class="fa fa-search"></i></button>
             </div>
         </div>
@@ -689,82 +689,140 @@
         {% endif %}
     </footer>
 
-    <script>
-        // JavaScript to scroll to the "soc-med" division when the "Contact" link is clicked
-        document.querySelector('.nav ul li a[href="#contact"]').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent the default action of the link
-            
-            // Scroll to the "soc-med" division smoothly
-            document.querySelector('.soc-med').scrollIntoView({
-                behavior: 'smooth'
+        <script>
+            // JavaScript to scroll to the "soc-med" division when the "Contact" link is clicked
+            document.querySelector('.nav ul li a[href="#contact"]').addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the default action of the link
+                
+                // Scroll to the "soc-med" division smoothly
+                document.querySelector('.soc-med').scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        });
-    </script>
+        </script>
 
-    <script>
-        function redirectToWhatsApp(phoneNumber, productId) {
-            // Define the product card element
-            var productCard = document.getElementById(productId);
+        <script>
+            function redirectToWhatsApp(phoneNumber, productId) {
+                // Define the product card element
+                var productCard = document.getElementById(productId);
+                
+                // Get the product details
+                var productName = productCard.querySelector('h3').innerText;
+                var productDescription = productCard.querySelector('p').innerText;
+                
+                // Check if the emojis should be replaced
+                if (productCard.dataset.replaceEmoji === "true") {
+                    // Replace emojis with their alternative texts
+                    productName = replaceEmojisWithAltText(productName);
+                    productDescription = replaceEmojisWithAltText(productDescription);
+                }
+                
+                productName = productName.replace(/[\p{Emoji}]/gu, '');
+                productName = productName.trim();
+                productName = '*' + productName + '*';
+                
+                productDescription = productDescription.replace(/[\p{Emoji}]/gu, '');
+                productDescription = productDescription.trim();
+                productDescription = '_*' + productDescription + '*_';
+                
+                var productPrice = "Price: " + '*' + productCard.querySelector('p + h3').innerText + '*';
+                var productImageURL = productCard.querySelector('img').src;
             
-            // Get the product details
-            var productName = productCard.querySelector('h3').innerText;
-            var productDescription = productCard.querySelector('p').innerText;
+                // Construct the message with product details and image
+                var message = "I would like to order the following product:\n" +
+                            productName + "\n" +
+                            productDescription + "\n" +
+                            productPrice + "\n" +
+                            productImageURL;
+                
+                // Encode the message for URL using encodeURIComponent function
+                var encodedMessage = encodeURIComponent(message);
             
-            // Check if the emojis should be replaced
-            if (productCard.dataset.replaceEmoji === "true") {
-                // Replace emojis with their alternative texts
-                productName = replaceEmojisWithAltText(productName);
-                productDescription = replaceEmojisWithAltText(productDescription);
+                // Construct the WhatsApp URL with pre-filled message
+                var whatsappURL = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+                
+                // Open the WhatsApp URL in a new tab
+                window.open(whatsappURL, '_blank');
             }
             
-            productName = productName.replace(/[\p{Emoji}]/gu, '');
-            productName = productName.trim();
-            productName = '*' + productName + '*';
+            function replaceEmojisWithAltText(text) {
+                // Define a mapping of emojis and their alternative texts
+                var emojiAltTextMapping = {
+                    '💖': ' love ',
+                    // Add more mappings here as needed
+                };
+                
+                // Replace each sequence of repeated emojis in the text with its alternative text
+                for (var emoji in emojiAltTextMapping) {
+                    var altText = emojiAltTextMapping[emoji];
+                    var regex = new RegExp(emoji + '+', );
+                    text = text.replace(regex, altText);
+                }
+                
+                // Remove extra spaces
+                text = text.replace(/\s+/g, ' ').trim();
+                
+                return text;
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the search bar element
+                var searchBar = document.getElementById('search-bar');
             
-            productDescription = productDescription.replace(/[\p{Emoji}]/gu, '');
-            productDescription = productDescription.trim();
-            productDescription = '_*' + productDescription + '*_';
+                // Add an event listener to the search bar
+                searchBar.addEventListener('keyup', function(e) {
+                    // Get the search term in uppercase
+                    var searchTerm = e.target.value.toUpperCase();
             
-            var productPrice = "Price: " + '*' + productCard.querySelector('p + h3').innerText + '*';
-            var productImageURL = productCard.querySelector('img').src;
-        
-            // Construct the message with product details and image
-            var message = "I would like to order the following product:\n" +
-                          productName + "\n" +
-                          productDescription + "\n" +
-                          productPrice + "\n" +
-                          productImageURL;
+                    // Get all the product cards
+                    var productCards = document.getElementsByClassName('product-card');
             
-            // Encode the message for URL using encodeURIComponent function
-            var encodedMessage = encodeURIComponent(message);
-        
-            // Construct the WhatsApp URL with pre-filled message
-            var whatsappURL = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+                    // Loop through the product cards
+                    for (var i = 0; i < productCards.length; i++) {
+                        // Get the text content of the product card
+                        var productText = productCards[i].textContent || productCards[i].innerText;
             
-            // Open the WhatsApp URL in a new tab
-            window.open(whatsappURL, '_blank');
-        }
-        
-        function replaceEmojisWithAltText(text) {
-            // Define a mapping of emojis and their alternative texts
-            var emojiAltTextMapping = {
-                '💖': ' love ',
-                // Add more mappings here as needed
-            };
-            
-            // Replace each sequence of repeated emojis in the text with its alternative text
-            for (var emoji in emojiAltTextMapping) {
-                var altText = emojiAltTextMapping[emoji];
-                var regex = new RegExp(emoji + '+', );
-                text = text.replace(regex, altText);
+                        // Check if the product text includes the search term
+                        if (productText.toUpperCase().indexOf(searchTerm) > -1) {
+                            productCards[i].style.display = ''; // Show the product card
+                        } else {
+                            productCards[i].style.display = 'none'; // Hide the product card
+                        }
+                    }
+                });
+            });
+
+            function searchProducts() {
+                var input = document.getElementById('search-bar');
+                var filter = input.value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/search/?q=' + encodeURIComponent(filter), true);
+                xhr.onload = function() {
+                    if (this.status == 200) {
+                        var results = JSON.parse(this.responseText);
+                        displayResults(results);
+                    }
+                };
+                xhr.send();
             }
             
-            // Remove extra spaces
-            text = text.replace(/\s+/g, ' ').trim();
+            function displayResults(products) {
+                var productContainer = document.getElementById('products-container');
+                productContainer.innerHTML = ''; // Clear current products
+                products.forEach(function(product) {
+                    // Create and append new product cards
+                    var card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = '<h3>' + product.name + '</h3><p>' + product.description + '</p>';
+                    productContainer.appendChild(card);
+                });
+            }
             
-            return text;
-        }
-    </script>
-    
-</body>
-</html>
+            
+
+            
+            
+        </script>
+        
+    </body>
+    </html>
