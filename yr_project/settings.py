@@ -11,10 +11,25 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 import os
 from dotenv import load_dotenv
+from pathlib import Path
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Initialize environment variables
+env = environ.Env()
+
+# Read .env file
+env.read_env()
+
+DEBUG = env.bool('DEBUG', default=False)
+COUNT_PAGE_VIEWS = env.bool('COUNT_PAGE_VIEWS', default=False)
+
+# ... rest of your settings
 
 
 # Quick-start development settings - unsuitable for production
