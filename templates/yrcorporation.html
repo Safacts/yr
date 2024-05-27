@@ -780,7 +780,7 @@
 
             function searchProducts() {
                 var input = document.getElementById('search-bar');
-                var filter = input.value.toUpperCase();
+                var filter = input.value.trim().toUpperCase();  // Remove leading and trailing spaces from the search query
             
                 if (filter === '') {
                     // If the search bar is cleared, restore the original products
@@ -801,7 +801,7 @@
                             // Loop through the product cards
                             for (var i = 0; i < productCards.length; i++) {
                                 // Get the text content of the product card
-                                var productText = productCards[i].textContent || productCards[i].innerText;
+                                var productText = productCards[i].textContent.trim() || productCards[i].innerText.trim();  // Remove leading and trailing spaces from the product card text
             
                                 // Check if the product text includes the search term
                                 if (productText.toUpperCase().indexOf(filter) > -1) {
@@ -813,7 +813,7 @@
                         });
                 }
             }
-            
+                        
         </script>
         
     </body>
