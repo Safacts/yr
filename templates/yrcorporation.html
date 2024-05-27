@@ -773,6 +773,10 @@
                 var searchBar = document.getElementById('search-bar');
                 searchBar.addEventListener('keyup', searchProducts);
             });
+            
+            
+            var controller;
+            var signal;
 
             function searchProducts() {
                 var input = document.getElementById('search-bar');
@@ -781,9 +785,17 @@
                 if (filter === '') {
                     // If the search bar is cleared, restore the original products
                     document.getElementById('productContainer').innerHTML = originalProducts;
+                    // Cancel any ongoing fetch request
+                    if (controller) {
+                        controller.abort();
+                    }
                 } else {
+                    // Create a new AbortController
+                    controller = new AbortController();
+                    signal = controller.signal;
+
                     // Fetch 'products.html' and filter products on search
-                    fetch('templates/products.html')
+                    fetch('templates/products.html', { signal: signal })
                         .then(response => response.text())
                         .then(data => {
                             var parser = new DOMParser();
@@ -806,10 +818,17 @@
                                     productContainer.appendChild(clonedCard);
                                 }
                             }
+                        })
+                        .catch(error => {
+                            if (error.name === 'AbortError') {
+                                console.log('Fetch aborted');
+                            } else {
+                                console.error('Error:', error);
+                            }
                         });
                 }
             }
-            
+
         </script>
         
     </body>
