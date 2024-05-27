@@ -781,36 +781,28 @@
             function searchProducts() {
                 var input = document.getElementById('search-bar');
                 var filter = input.value.toUpperCase();
-
+            
                 if (filter === '') {
                     // If the search bar is cleared, restore the original products
                     document.getElementById('productContainer').innerHTML = originalProducts;
-                    // Cancel any ongoing fetch request
-                    if (controller) {
-                        controller.abort();
-                    }
                 } else {
-                    // Create a new AbortController
-                    controller = new AbortController();
-                    signal = controller.signal;
-
                     // Fetch 'products.html' and filter products on search
-                    fetch('templates/products.html', { signal: signal })
+                    fetch('templates/products.html')
                         .then(response => response.text())
                         .then(data => {
                             var parser = new DOMParser();
                             var productsDoc = parser.parseFromString(data, 'text/html');
                             var productCards = productsDoc.getElementsByClassName('product-card');
-
+            
                             // Clear current product cards on 'yrcorporation.html'
                             var productContainer = document.getElementById('productContainer');
                             productContainer.innerHTML = '';
-
+            
                             // Loop through the product cards
                             for (var i = 0; i < productCards.length; i++) {
                                 // Get the text content of the product card
                                 var productText = productCards[i].textContent || productCards[i].innerText;
-
+            
                                 // Check if the product text includes the search term
                                 if (productText.toUpperCase().indexOf(filter) > -1) {
                                     // Clone the product card and append it to 'productContainer' on 'yrcorporation.html'
@@ -818,17 +810,10 @@
                                     productContainer.appendChild(clonedCard);
                                 }
                             }
-                        })
-                        .catch(error => {
-                            if (error.name === 'AbortError') {
-                                console.log('Fetch aborted');
-                            } else {
-                                console.error('Error:', error);
-                            }
                         });
                 }
             }
-
+            
         </script>
         
     </body>
