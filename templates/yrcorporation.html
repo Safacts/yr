@@ -626,7 +626,7 @@
                 <h3>Honda keychain 🚙</h3>
                 <p>Buy the keychains with least price on internet ✨ </p>
                 <p><h3>&#8377;15</h6></p>
-                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+918882076378', 'product1')">Order</button>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product1')">Order</button>
 
                 </div>
             </div>
@@ -638,7 +638,7 @@
                 <h3>I💖MOM</h3>
                 <p>We are waiting for your Order <br>(❁´◡`❁)</p>
                 <p><h3>&#8377;24 </h6></p>
-                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+918882076378', 'product2')">Order</button>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product2')">Order</button>
                 </div>
             </div>
             
@@ -649,7 +649,7 @@
                 <h3>Jai Shre Shyam🪈🦚</h3>
                 <p>Place your Order now on Wattsapp/call 💫</p>
                 <p><h3>&#8377;15</h6></p>
-                <button class="add-to-cart-button" onclick="redirectToWhatsApp('+918882076378', 'product3')">Order</button>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product3')">Order</button>
 
                 </div>
             </div>
@@ -702,7 +702,9 @@
         </script>
 
         <script>
-            function redirectToWhatsApp(phoneNumber, productId) {
+             const whatsappNumber = '+918882076378';
+
+            function redirectToWhatsApp(productId) {
                 // Define the product card element
                 var productCard = document.getElementById(productId);
                 
@@ -739,7 +741,7 @@
                 var encodedMessage = encodeURIComponent(message);
             
                 // Construct the WhatsApp URL with pre-filled message
-                var whatsappURL = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+                var whatsappURL = 'https://wa.me/' + whatsappNumber  + '?text=' + encodedMessage;
                 
                 // Open the WhatsApp URL in a new tab
                 window.open(whatsappURL, '_blank');
