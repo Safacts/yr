@@ -31,3 +31,6 @@ def search(request):
 
 def products(request):
     return render(request,"products.html")
+
+def upload(request):
+    return render(request, "upload.html")
