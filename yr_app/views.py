@@ -4,7 +4,13 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from .models import PageView , Product
+from supabase import create_client, Client
+import os
 
+# Initialize Supabase client
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
 def homepage(request):
@@ -32,5 +38,29 @@ def search(request):
 def products(request):
     return render(request,"products.html")
 
+# def upload(request):
+#     return render(request, "upload.html")
+
+
 def upload(request):
+    if request.method == "POST":
+        name = request.POST.get("productName")
+        description = request.POST.get("productDescription")
+        price = request.POST.get("productPrice")
+        image = request.FILES.get("productImage")
+
+        if image:
+            image_path = f"images/{image.name}"
+            supabase.storage.from_("images").upload(image_path, image.file)
+
+            # Get public URL of uploaded image
+            image_url = supabase.storage.from_("images").get_public_url(image_path)
+        else:
+            image_url = None
+
+        product = Product.objects.create(
+            name=name, description=description, price=price, image_url=image_url
+        )
+        return JsonResponse({"message": "Product submitted successfully!"})
+
     return render(request, "upload.html")
