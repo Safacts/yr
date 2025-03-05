@@ -48,43 +48,6 @@ def upload(request):
     return render(request, "upload.html")
 
 
-# def sanitize_filename(filename):
-#     """
-#     Replace spaces with underscores and remove any special characters
-#     except periods, underscores, and hyphens.
-#     """
-#     filename = re.sub(r'[^\w\.\-]', '_', filename)
-#     return filename
-
-# def upload(request):
-#     if request.method == "POST":
-#         name = request.POST.get("productName")
-#         description = request.POST.get("productDescription")
-#         price = request.POST.get("productPrice")
-#         image = request.FILES.get("productImage")
-
-#         if image:
-#             image_path = f"images/{image.name}"
-
-#             # Read the content of the uploaded image
-#             file_content = image.read()
-
-#             # Upload the image content to Supabase
-#             supabase.storage.from_("images").upload(image_path, file_content)
-
-#             # Get public URL of uploaded image
-#             image_url = supabase.storage.from_("images").get_public_url(image_path)
-#         else:
-#             image_url = None
-
-#         # Create the product in the database
-#         product = Product.objects.create(
-#             name=name, description=description, price=price, image_url=image_url
-#         )
-
-#         return JsonResponse({"message": "Product submitted successfully!"})
-
-#     return render(request, "upload.html")
 
 def sanitize_filename(filename):
     """
@@ -94,67 +57,6 @@ def sanitize_filename(filename):
     filename = re.sub(r'[^\w\.\-]', '_', filename)
     return filename
 
-# def submit_product(request):
-#     if request.method == "POST":
-#         # Retrieve form data
-#         name = request.POST.get("productName", "").strip()
-#         description = request.POST.get("productDescription", "").strip()
-#         price = request.POST.get("productPrice", "").strip()
-#         image = request.FILES.get("productImage")
-
-#         if image:
-#             # Sanitize the product name and original filename
-#             sanitized_product_name = sanitize_filename(name.lower())
-#             sanitized_file_name = sanitize_filename(image.name)
-
-#             # Combine product name with the original file name
-#             unique_file_name = f"{sanitized_product_name}_{sanitized_file_name}"
-
-#             # URL-encode the unique file name
-#             unique_file_name_encoded = urllib.parse.quote(unique_file_name)
-
-#             # Define the path in the Supabase bucket
-#             image_path = f"images/{unique_file_name_encoded}"
-
-#             try:
-#                 # Read the content of the uploaded image
-#                 file_content = image.read()
-#                 content_type = image.content_type
-
-#                 # Upload the image content to Supabase
-#                 response = supabase.storage.from_("images").upload(
-#                     image_path, file_content, {
-#                         'content-type': content_type
-#                     }
-#                 )
-
-#                 # Check for errors in the response
-#                 response_data = response.json()
-#                 if response_data.get('error'):
-#                     print(f"Error uploading file: {response_data['error']}")
-#                     return JsonResponse({'success': False, 'error': response_data['error']})
-
-#                 # Construct the public URL of the uploaded image
-#                 image_url = f"{SUPABASE_URL}/storage/v1/object/public/images/{image_path}"
-
-#             except Exception as e:
-#                 # Handle any exceptions during the upload process
-#                 print(f"Exception during file upload: {e}")
-#                 return JsonResponse({'success': False, 'error': str(e)})
-#         else:
-#             image_url = None
-
-#         # Create the product in the database
-#         product = Product.objects.create(
-#             name=name,
-#             description=description,
-#             price=price,
-#             image_url=image_url
-#         )
-
-#         return JsonResponse({"message": "Product submitted successfully!"})
-
-#     return render(request, "upload.html")
 def submit_product(request):
     if request.method == "POST":
         # Retrieve form data
@@ -230,3 +132,23 @@ def submit_product(request):
             return JsonResponse({'success': False, 'error': 'Unknown error occurred'})
 
     return render(request, "upload.html")
+
+
+def product_list(request):
+    try:
+        # Fetch all products from Supabase
+        response = supabase.table('yr_app_product').select("*").execute()
+
+        print("Raw response from Supabase:", response)  # Debugging
+
+        if hasattr(response, 'data') and isinstance(response.data, list):
+            products = response.data  # Extract products
+        else:
+            print("Unexpected response structure:", response)
+            products = []  # Default to empty list
+
+    except Exception as e:
+        print("Error fetching products:", e)
+        products = []
+
+    return render(request, "products.html", {"products": products})

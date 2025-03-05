@@ -265,7 +265,7 @@
 </head>
 <body>
 <div class="products">
-    <div class="product-card" id="product1" data-replace-emoji="true">
+    {% comment %} <div class="product-card" id="product1" data-replace-emoji="true">
         <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
         <div class="product-info">
             <h3>HONDA key 🔑🔗🔗</h3>
@@ -415,7 +415,26 @@
             <p><h3>&#8377;15 </h6></p>
             <button class="add-to-cart-button" onclick="redirectToWhatsApp('product15')">Order</button>
         </div>
-    </div>
+    </div> {% endcomment %}
+
+    
+  {% comment %} <h2>Product List</h2> {% endcomment %}
+  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    {% for product in products %}
+        <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <div class="product-info">
+                <h3>{{ product.name }} </h3>
+                <p>{{ product.description }}</p>
+                <p><h3>&#8377;{{ product.price }}</h3></p>
+                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
+            </div>
+        </div>
+    {% empty %}
+        <p>No products available.</p>
+    {% endfor %}
+</div>
+
 
 
     <!-- Repeat the above product card structure for all your products -->
@@ -511,4 +530,4 @@
 </script>
 
 </body>
-</html>
+</html> 
