@@ -18,6 +18,7 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_SERVICE_KEY = os.environ.get('SUPABASE_SERVICE_KEY')  # Set this in your environment
 supabase: Client = create_client(SUPABASE_URL,  SUPABASE_SERVICE_KEY)
 
+PASSWORD = os.environ.get("PASSWORD")
 
 def homepage(request):
     if settings.COUNT_PAGE_VIEWS:
@@ -152,3 +153,7 @@ def product_list(request):
         products = []
 
     return render(request, "products.html", {"products": products})
+
+def password(request):
+    return render(request, "password.html")
+
