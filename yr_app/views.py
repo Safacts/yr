@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
@@ -6,11 +6,9 @@ from django.conf import settings
 from .models import PageView , Product
 from supabase import create_client, Client
 import os
-
-# new imports for file uploading
 import re
 import urllib.parse
-
+from django.contrib import messages
 
 # Initialize Supabase client
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
@@ -154,6 +152,22 @@ def product_list(request):
 
     return render(request, "products.html", {"products": products})
 
-def password(request):
-    return render(request, "password.html")
+# def password(request):
+#     return render(request, "password.html")
 
+
+
+def password(request):
+    # Get the password from the environment securely
+    correct_password = os.environ.get("PASSWORD")
+
+    if request.method == "POST":
+        submitted_password = request.POST.get("password")
+        if submitted_password == correct_password:
+            # Mark the session as authenticated
+            request.session['authenticated'] = True
+            return redirect('upload')  # or any other protected URL
+        else:
+            messages.error(request, "Incorrect password.")
+
+    return render(request, "password.html")
