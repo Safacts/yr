@@ -174,13 +174,14 @@
     </style>
 </head>
 <body>
-    <header class="header">
+    {% comment %} <header class="header">
         <h1>Submit Your Product</h1>
-    </header>
+    </header> {% endcomment %}
 
     <div class="product-form-container">
         <h2>Submit New Product</h2>
-        <form id="productForm">
+        <form id="productForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="productName">Product Name:</label>
                 <input type="text" id="productName" name="productName" required />
@@ -202,26 +203,46 @@
         </form>
         <div class="message" id="formMessage"></div>
     </div>
-
+    
     <script>
         document.getElementById("productForm").addEventListener("submit", async function (e) {
             e.preventDefault();
-        
+    
             let formData = new FormData(this);
-        
+    
+            const getCookie = (name) => {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; cookies.length > i; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            };
+            const csrftoken = getCookie('csrftoken');
+    
             let response = await fetch("{% url 'submit_product' %}", {
                 method: "POST",
                 body: formData,
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
             });
-        
+    
             let result = await response.json();
             document.getElementById("formMessage").innerText = result.message;
-        
+    
             if (response.ok) {
                 this.reset();
             }
         });
     </script>
+    
         
 </body>
 </html>

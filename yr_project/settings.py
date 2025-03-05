@@ -39,7 +39,7 @@ COUNT_PAGE_VIEWS = env.bool('COUNT_PAGE_VIEWS', default=False)
 SECRET_KEY = 'django-insecure-f29b#$#cdqg##ls!ibpais9m+e^rxzw!w%9%&nf20pwg^z9*m-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
