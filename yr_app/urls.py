@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homepage, products, search, upload, submit_product, product_list, password
+from .views import homepage, products, search, upload, submit_product, product_list, password, search_products, all_products
 
 urlpatterns = [
     path("", homepage, name="home"),
@@ -8,6 +8,8 @@ urlpatterns = [
     path('submit_product/', submit_product, name='submit_product'),  # Ensure this pattern is correct and not duplicated
     path('upload/',upload, name='upload'),
     path('password/',password, name='password'),
+    path('search-products/',search_products, name='search_products'),
+    path('all-products/', all_products, name='all_products'),
 
     # path('product_list/', product_list, name='product_list')
 ]

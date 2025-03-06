@@ -10,6 +10,14 @@ import re
 import urllib.parse
 from django.contrib import messages
 
+import json
+from django.db.models import Q
+from decimal import Decimal, InvalidOperation
+import datetime
+from django.utils import timezone
+
+now_iso = timezone.now().isoformat()
+
 # Initialize Supabase client
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 # SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
@@ -61,7 +69,11 @@ def submit_product(request):
         # Retrieve form data
         name = request.POST.get("productName", "").strip()
         description = request.POST.get("productDescription", "").strip()
-        price = float(request.POST.get("productPrice", "0").strip())  # Convert to float
+       # Convert to float. Ensure proper conversion; consider using Decimal for accuracy.
+        try:
+            price = float(request.POST.get("productPrice", "0").strip())
+        except ValueError:
+            return JsonResponse({'success': False, 'error': 'Invalid price format'})
         image = request.FILES.get("productImage")
 
         if image:
@@ -111,7 +123,10 @@ def submit_product(request):
             'name': name,
             'description': description,
             'price': price,
-            'image_url': image_url
+            'image_url': image_url,
+            'created_at': now_iso,
+            'updated_at' : now_iso,
+
         }
 
         # Insert the product into the Supabase table
@@ -171,3 +186,48 @@ def password(request):
             messages.error(request, "Incorrect password.")
 
     return render(request, "password.html")
+
+
+
+def search_products(request):
+    query = request.GET.get("query", "")
+    products_qs = Product.objects.all()
+
+    if query:
+        try:
+            # If query can be converted to a decimal, then include price exact matches
+            query_price = Decimal(query)
+            price_filter = Q(price=query_price)
+        except InvalidOperation:
+            price_filter = Q()
+
+        products_qs = products_qs.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            price_filter
+        )
+
+    # Build a list of product dictionaries
+    products_list = []
+    for product in products_qs:
+        products_list.append({
+            "name": product.name,
+            "description": product.description,
+            "price": str(product.price),
+            "image_url": product.image_url,
+        })
+
+    return JsonResponse({"products": products_list})
+
+
+def all_products(request):
+    products_qs = Product.objects.all()
+    products_list = [{
+        'id': product.id,
+        'name': product.name,
+        'description': product.description,
+        'price': str(product.price),
+        'image_url': product.image_url,
+    } for product in products_qs]
+
+    return JsonResponse({'products': products_list})

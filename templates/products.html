@@ -335,6 +335,13 @@
             background-color: #e0e0e0; /* Alternate background color for even containers */
         }
 
+        /* Media query to target mobile screens */
+        @media (max-width: 767px) {
+            .buttons {
+                display: none;
+            }
+        }
+
 
 
     </style>
@@ -342,10 +349,10 @@
 <body>
     <div class="header">
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterFiles()">
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
         </div>
         <div class="buttons">
-            <button onclick="showContainer('container1')">Show Container 1</button>
+            <button onclick="redirectToHome()">Home</button> 
             <button onclick="showContainer('container2')">Show Container 2</button>
             <button onclick="showContainer('container3')">Show Container 3</button>
             <button onclick="showContainer('fileContainer')">Manage Files</button>
@@ -389,161 +396,7 @@
     </div>
 
 <div class="products">
-    {% comment %} <div class="product-card" id="product1" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/honda%20key%20chain.jpg" alt="Product 1">
-        <div class="product-info">
-            <h3>HONDA key 🔑🔗🔗</h3>
-            <p>Product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product1')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product2" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/drive%20safe.jpg?t=2024-03-13T03%3A46%3A24.543Z" alt="Product 2">
-        <div class="product-info">
-            <h3>Drive safe 🗝️chain ^_^</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;24 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product2')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product3" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai%20big%20img.jpg?t=2024-03-13T03%3A46%3A46.829Z" alt="Product 3">
-        <div class="product-info">
-            <h3>Hyundai logo🚙🏎️ </h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product3')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product4" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/hyundai.jpg?t=2024-03-13T03%3A47%3A08.761Z" alt="product 4">
-        <div class="product-info">
-            <h3>Hyundai long key 🔗</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product4')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product5" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20mom.jpg?t=2024-03-13T03%3A47%3A30.469Z" alt="Product 5">
-        <div class="product-info">
-            <h3> I💖MOM</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;24 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product5')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product6" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/i%20love%20papa.jpg?t=2024-03-13T03%3A48%3A12.401Z" alt="Product 6">
-        <div class="product-info">
-            <h3>I💖💖PAPA</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;24 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product6')">Order</button>
-        </div>
-    </div>
-    
-       <div class="product-card" id="product7" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shaym%20silver.jpg?t=2024-03-13T03%3A48%3A27.899Z" alt="Product 7">
-        <div class="product-info">
-            <h3>JAI SHRE SHYAM!💫</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product7')">Order</button>
-        </div>
-    </div>
-    
-       <div class="product-card" id="product8" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/jai%20shree%20shyam.jpg?t=2024-03-13T03%3A48%3A38.419Z" alt="Product 8">
-        <div class="product-info">
-            <h3>Jai Shree Shyam🪈🦚</h3>
-            <p>Place your Order now on Wattsapp/call 💫</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product8')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product9" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/key.jpg?t=2024-03-13T03%3A48%3A53.720Z" alt="Product 9">
-        <div class="product-info">
-            <h3>KEY 🔐</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product9')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product10" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mahindra%20old.jpg?t=2024-03-13T03%3A49%3A07.105Z" alt="Product 10">
-        <div class="product-info">
-            <h3>MAHINDRA lOgO🔗💫</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product10')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product11" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/mercedes.jpg?t=2024-03-13T03%3A49%3A20.448Z" alt="Product 11">
-        <div class="product-info">
-            <h3>mercedes Logo 🚘🚨</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product11')">Order</button>
-        </div>
-    </div>
-
-    
-       <div class="product-card" id="product12" data-replace-emoji="false">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shaym.jpg?t=2024-03-13T03%3A50%3A16.988Z" alt="Product 12">
-        <div class="product-info">
-            <h3>Shree Shyam 🦚💖</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product12')">Order</button>
-        </div>
-    </div>
-
-    
-    <div class="product-card" id="product13" data-replace-emoji="false">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/shree%20shyam%20devaay%20namah.jpg?t=2024-03-13T03%3A50%3A33.380Z" alt="Product 13">
-        <div class="product-info">
-            <h3>shre shyam devaya💖</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product13')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product14" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/wolswagon%202.jpg" alt="Product 14">
-        <div class="product-info">
-            <h3>WolksWagon logo🚙</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product14')">Order</button>
-        </div>
-    </div>
-
-       <div class="product-card" id="product15" data-replace-emoji="true">
-        <img src="https://ehtjgdywsyvlshqpxbum.supabase.co/storage/v1/object/public/images/toyota.jpg?t=2024-03-13T03%3A51%3A06.762Z" alt="Product 15">
-        <div class="product-info">
-            <h3>Toyota key🔗🗝️🔐 🚙</h3>
-            <p>New product description or details go here.</p>
-            <p><h3>&#8377;15 </h6></p>
-            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product15')">Order</button>
-        </div>
-    </div> {% endcomment %}
-
-    
-  {% comment %} <h2>Product List</h2> {% endcomment %}
-  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <div id="productsContainer" style="display: flex; flex-wrap: wrap; gap: 10px;">
     {% for product in products %}
         <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
             <img src="{{ product.image_url }}" alt="{{ product.name }}">
@@ -588,6 +441,13 @@
     &copy; 2024 YR Corporation. All rights reserved.
 </footer>
 <script>
+
+    function redirectToHome() {
+        window.location.href = "{% url 'home' %}";
+    }
+
+
+
     const whatsappNumber = '+918882076378';
     function redirectToWhatsApp(productId) {
         // Define the product card element
@@ -675,7 +535,133 @@
             loadFiles();
         }
     }
-     
+
+    // Function to fetch and display search results or all products in the products container
+    function filterProducts() {
+        const query = document.getElementById('searchInput').value.trim();
+        let url = '/search-products/'; // Default URL for search
+
+        // If the search box is empty, change the URL to fetch all products
+        if (!query) {
+            url = '/all-products/'; // Adjust this URL to match the endpoint for fetching all products
+        } else {
+            url += `?query=${encodeURIComponent(query)}`;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('productsContainer');
+
+                if (!data.products || data.products.length === 0) {
+                    container.innerHTML = '<p>No products found.</p>';
+                } else {
+                    // When fewer than 4 items, center them; otherwise, space them out.
+                    const justifyContent = data.products.length < 4 ? "center" : "center";
+
+                    // Build the HTML string with the inline CSS inserted only once.
+                    let html = `
+                        <style>
+                            .products {
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: ${justifyContent};
+                                gap: 10px;
+                                padding: 20px;
+                                margin-bottom: 50px;
+                            }
+                            .product-card {
+                                flex: 0 0 300px;
+                                width: 300px;
+                                height: 540px;
+                                background-color: #fff;
+                                border-radius: 10px;
+                                overflow: hidden;
+                                transition: transform 0.3s ease;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                margin: 10px;
+                                animation: fade-in 1s ease-out both;
+                                position: relative; /* for absolute positioning of the button */
+                            }
+                            .product-card img {
+                                width: 100%;
+                                height: 390px;
+                                object-fit: contain;
+                                display: block;
+                            }
+                            .product-info {
+                                padding: 35px;
+                                text-align: left;
+                                height: 150px;
+                            }
+                            .product-info h3 {
+                                margin: 0 0 5px;
+                                font-size: 1.3rem;
+                                color: #333;
+                            }
+                            .product-info p {
+                                margin: 0;
+                                color: #666;
+                                font-size: 0.9rem;
+                            }
+                            .price {
+                                font-size: 1.3rem;
+                                margin: 10px 0 0;
+                                color: #333;
+                            }
+                            .product-info button {
+                                background-color: #333;
+                                color: #fff;
+                                border: none;
+                                padding: 10px 20px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                transition: background-color 0.3s ease;
+                                position: absolute;
+                                bottom: 15px;
+                                right: 15px;
+                            }
+                            .product-info button:hover {
+                                background-color: #444;
+                            }
+                            @keyframes fade-in {
+                                0% {
+                                    opacity: 0;
+                                    transform: translateY(20px);
+                                }
+                                100% {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+                        </style>
+                        <div class="products">
+                    `;
+                    data.products.forEach(product => {
+                        html += `
+                            <div class="product-card" id="product${product.id}" data-replace-emoji="true">
+                                ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}">` : ''}
+                                <div class="product-info">
+                                    <h3>${product.name}</h3>
+                                    <p>${product.description}</p>
+                                    <p class="price">&#8377;${product.price}</p>
+                                    <button class="add-to-cart-button" onclick="redirectToWhatsApp('product${product.id}')">Order</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                    container.innerHTML = html;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
+
+
+
 
 </script>
 
