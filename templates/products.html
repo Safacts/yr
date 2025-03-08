@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <style>
+
+        /* Hide admin features by default */
+        #adminFeatures {
+            display: none;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -370,7 +376,18 @@
             <button onclick="showContainer('container2')">Show Container 2</button>
             <button onclick="showContainer('container3')">Show Container 3</button>
             <button onclick="showContainer('fileContainer')">Manage Files</button>
+            <!-- Admin Toggle Button -->
+            <div class="admin-toggle">
+                <button onclick="toggleAdmin()">Admin Mode</button>
+            </div>
         </div>
+    </div>
+
+    <!-- Admin-Only Features (initially hidden) -->
+    <div id="adminFeatures">
+        <h2>Admin Features</h2>
+        <p>Special functionality only visible to admins goes here.</p>
+        <!-- Add further admin-related elements as needed -->
     </div>
 
     
@@ -671,8 +688,24 @@
             .catch(error => console.error('Error:', error));
     }
 
-
-
+    {% comment %} for admin features {% endcomment %}
+    function toggleAdmin() {
+        const adminMode = sessionStorage.getItem('adminMode');
+        if (adminMode === 'true') {
+            sessionStorage.setItem('adminMode', 'false');
+            document.getElementById('adminFeatures').style.display = 'none';
+            alert('Admin mode deactivated.');
+        } else {
+            const password = prompt('Enter admin password:');
+            if (password === 'secret') {  // Replace 'secret' with your real validation logic.
+                sessionStorage.setItem('adminMode', 'true');
+                document.getElementById('adminFeatures').style.display = 'block';
+                alert('Admin mode activated.');
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+    }
 
 
 
