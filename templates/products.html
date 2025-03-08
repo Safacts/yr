@@ -364,6 +364,64 @@
 
 
 
+        {% comment %}  {% endcomment %}
+       
+        .arrow {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 20px;
+            z-index: 1000; /* Ensure the arrow is on top of the image */
+          }
+          
+          .arrow::before,
+          .arrow::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 4px;
+            background: transparent;
+            border-top: 4px solid #000;
+            border-radius: 2px;
+            top: 50%;
+            left: 50%;
+          }
+          
+          .arrow::before {
+            transform: translate(-75%, -50%) rotate(135deg);
+           
+          }
+          
+          .arrow::after {
+            transform: translate(-25%, -50%) rotate(-135deg);
+          }
+          
+          .arrow.active {
+            transform: rotate(90deg);
+          }
+
+          .product-card .arrow {
+            position: absolute;
+            top: 0px;   /* Adjust based on your design */
+            right: 10px; /* Adjust based on your design */
+            z-index: 10; /* Ensures the arrow appears on top of the image */
+            width: 30px;  /* Example width */
+            height: 30px; /* Example height */
+           
+            cursor: pointer;
+          }
+
+          {% comment %} admin-only hidden  {% endcomment %}
+
+
+        .admin-only {
+            display: none; /* Hide admin-only elements by default */
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -384,10 +442,13 @@
     </div>
 
     <!-- Admin-Only Features (initially hidden) -->
-    <div id="adminFeatures">
+    {% comment %} <div id="admin-only">
         <h2>Admin Features</h2>
         <p>Special functionality only visible to admins goes here.</p>
         <!-- Add further admin-related elements as needed -->
+    </div> {% endcomment %}
+    <div id="adminFeatures">
+       <h3> hidden<h3>
     </div>
 
     
@@ -429,14 +490,23 @@
 <div class="products">
   <div id="productsContainer" style="display: flex; flex-wrap: wrap; gap: 10px;">
     {% for product in products %}
+    
         <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
-            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+           
+            <!-- Both classes included: .arrow for styling and .admin-toggle for abstraction -->
+            <div class="arrow admin-only" onclick="this.classList.toggle('active')"></div>
+           
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" >
+            
             <div class="product-info">
                 <h3>{{ product.name }} </h3>
                 <p>{{ product.description }}</p>
                 <p><h3>&#8377;{{ product.price }}</h3></p>
+                
                 <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
+                
             </div>
+            
         </div>
     {% empty %}
         <p>No products available.</p>
@@ -692,19 +762,37 @@
     function toggleAdmin() {
         const adminMode = sessionStorage.getItem('adminMode');
         if (adminMode === 'true') {
-            sessionStorage.setItem('adminMode', 'false');
-            document.getElementById('adminFeatures').style.display = 'none';
-            alert('Admin mode deactivated.');
+          sessionStorage.setItem('adminMode', 'false');
+          // Hide all elements that should only appear in admin mode
+          document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = 'none';
+          });
+          alert('Admin mode deactivated.');
         } else {
-            const password = prompt('Enter admin password:');
-            if (password === 'secret') {  // Replace 'secret' with your real validation logic.
-                sessionStorage.setItem('adminMode', 'true');
-                document.getElementById('adminFeatures').style.display = 'block';
-                alert('Admin mode activated.');
-            } else {
-                alert('Incorrect password.');
-            }
+          const password = prompt('Enter admin password:');
+          if (password === 'secret') {  // Replace 'secret' with your actual validation logic.
+            sessionStorage.setItem('adminMode', 'true');
+            // Show all elements that should only appear in admin mode
+            document.querySelectorAll('.admin-only').forEach(el => {
+              el.style.display = 'block';
+            });
+            alert('Admin mode activated.');
+          } else {
+            alert('Incorrect password.');
+          }
         }
+      }
+      
+
+    function toggleContent() {
+        const content = document.getElementById('expandableContent');
+        const arrow = document.getElementById('expandableArrow');
+        
+        // Toggle content display
+        content.classList.toggle('show');
+
+        // Rotate arrow
+        arrow.classList.toggle('rotated');
     }
 
 
@@ -714,3 +802,54 @@
 
 </body>
 </html> 
+
+
+
+
+{% comment %}       for good arrow pointer  
+        #arrow {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 20px;
+          }
+          
+          #arrow::before,
+          #arrow::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 4px;
+            background: transparent;
+            border-top: 4px solid #000;
+            border-radius: 2px;
+            top: 50%;
+            left: 50%;
+          }
+          
+          #arrow::before {
+            transform: translate(-75%, -50%) rotate(135deg);
+          }
+          
+          #arrow::after {
+            transform: translate(-25%, -50%) rotate(-135deg);
+          }
+          
+          #arrow.active {
+            transform: rotate(90deg);
+          }
+
+          <div id="arrow" onclick="this.classList.toggle('active')"></div>
+
+          function toggleContent() {
+            const content = document.getElementById('expandableContent');
+            const arrow = document.getElementById('expandableArrow');
+            
+            // Toggle content display
+            content.classList.toggle('show');
+    
+            // Rotate arrow
+            arrow.classList.toggle('rotated');
+        } {% endcomment %}
