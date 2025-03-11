@@ -215,6 +215,8 @@ def search_products(request):
             "description": product.description,
             "price": str(product.price),
             "image_url": product.image_url,
+            "created_at": product.created_at,
+            "updated_at": product.updated_at,
         })
 
     return JsonResponse({"products": products_list})
@@ -228,6 +230,8 @@ def all_products(request):
         'description': product.description,
         'price': str(product.price),
         'image_url': product.image_url,
+        'created_at': product.created_at,
+        'updated_at': product.updated_at,
     } for product in products_qs]
 
     return JsonResponse({'products': products_list})
