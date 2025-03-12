@@ -16,6 +16,8 @@ from decimal import Decimal, InvalidOperation
 import datetime
 from django.utils import timezone
 
+from django.views.decorators.http import require_http_methods
+
 now_iso = timezone.now().isoformat()
 
 # Initialize Supabase client
@@ -217,6 +219,7 @@ def search_products(request):
             "image_url": product.image_url,
             "created_at": product.created_at,
             "updated_at": product.updated_at,
+            "order_count": product.order_count,
         })
 
     return JsonResponse({"products": products_list})
@@ -232,6 +235,7 @@ def all_products(request):
         'image_url': product.image_url,
         'created_at': product.created_at,
         'updated_at': product.updated_at,
+        'order_count' : product.order_count,
     } for product in products_qs]
 
     return JsonResponse({'products': products_list})
@@ -247,3 +251,14 @@ def order_button_click(request, product_id):
     product.save()
 
     return JsonResponse({"order_count": product.order_count})
+
+
+
+@require_http_methods(["DELETE"])
+def delete_product(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+        product.delete()
+        return JsonResponse({'message': 'Product deleted successfully.'}, status=200)
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Product not found.'}, status=404)
