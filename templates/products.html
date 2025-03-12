@@ -702,6 +702,21 @@
         
         // Open the WhatsApp URL in a new tab
         window.open(whatsappURL, '_blank');
+
+        // Call the order counting function
+        orderButtonClick();
+    }
+
+    function orderButtonClick() {
+        fetch('/order-button-click/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    console.log('Order count:', data.count);
+                }
+            });
     }
     
     function replaceEmojisWithAltText(text) {
