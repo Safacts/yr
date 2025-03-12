@@ -16,6 +16,13 @@ class Product(models.Model):
     image_url = models.URLField(max_length=1024, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    order_count = models.IntegerField(default=0)  # New field to store order count
 
     def __str__(self):
         return self.name
+
+
+
+# class OrderCount(models.Model):
+#     count = models.IntegerField(default=0)
+#     last_updated = models.DateTimeField(auto_now=True)

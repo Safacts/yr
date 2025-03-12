@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
@@ -235,3 +235,15 @@ def all_products(request):
     } for product in products_qs]
 
     return JsonResponse({'products': products_list})
+
+
+
+def order_button_click(request, product_id):
+    if settings.DEBUG:
+        return JsonResponse({"message": "Orders are not counted in development mode"})
+
+    product = get_object_or_404(Product, id=product_id)
+    product.order_count += 1
+    product.save()
+
+    return JsonResponse({"order_count": product.order_count})
