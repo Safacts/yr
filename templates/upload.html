@@ -235,10 +235,15 @@
             });
     
             let result = await response.json();
-            document.getElementById("formMessage").innerText = result.message;
-    
             if (response.ok) {
+                document.getElementById("formMessage").innerText = result.message;
                 this.reset();
+            } else {
+                if (result.error && result.error.message === 'The resource already exists') {
+                    document.getElementById("formMessage").innerText = "Product already exists.";
+                } else {
+                    document.getElementById("formMessage").innerText = result.error?.message || "An error occurred.";
+                }
             }
         });
     </script>

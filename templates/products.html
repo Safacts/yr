@@ -502,7 +502,7 @@
         }
         
         .deleteProduct:hover {
-            background-color: #ff0000; /* Red color on hover */
+            {% comment %} background-color: #ff0000; /* Red color on hover */ {% endcomment %}
             transform: scale(1.05); /* Slightly enlarge the button */
         }
 
@@ -625,8 +625,8 @@
           </div>
           <!-- Metadata panel for admin actions (hidden by default) -->
           <div class="metadata-panel admin-only">
-              <p>Edit</p>
-              <button class="deleteProduct" onclick="deleteProduct('{{ product.id }}')">Delete</button>
+            <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
+            <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor=' #ff0000';" onmouseout="this.style.backgroundColor='#333';">Delete</button>
               <p>Set Display</p>
               <p>Updated: {{ product.updated_at }}</p>
               <p>Uploaded: {{ product.created_at }}</p> 

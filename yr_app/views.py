@@ -66,25 +66,121 @@ def sanitize_filename(filename):
     filename = re.sub(r'[^\w\.\-]', '_', filename)
     return filename
 
+# def submit_product(request):
+#     if request.method == "POST":
+#         # Retrieve form data
+#         name = request.POST.get("productName", "").strip()
+#         description = request.POST.get("productDescription", "").strip()
+#        # Convert to float. Ensure proper conversion; consider using Decimal for accuracy.
+#         try:
+#             price = float(request.POST.get("productPrice", "0").strip())
+#         except ValueError:
+#             return JsonResponse({'success': False, 'error': 'Invalid price format'})
+#         image = request.FILES.get("productImage")
+
+#         if image:
+#             # Sanitize the product name and original filename
+#             sanitized_product_name = sanitize_filename(name.lower())
+#             sanitized_file_name = sanitize_filename(image.name)
+
+#             # Combine product name with the original file name
+#             unique_file_name = f"{sanitized_product_name}_{sanitized_file_name}"
+
+#             # URL-encode the unique file name
+#             unique_file_name_encoded = urllib.parse.quote(unique_file_name)
+
+#             # Define the path in the Supabase bucket
+#             image_path = f"images/{unique_file_name_encoded}"
+
+#             try:
+#                 # Read the content of the uploaded image
+#                 file_content = image.read()
+#                 content_type = image.content_type
+
+#                 # Upload the image content to Supabase
+#                 response = supabase.storage.from_("images").upload(
+#                     image_path, file_content, {
+#                         'content-type': content_type
+#                     }
+#                 )
+
+#                 # Check for errors in the response
+#                 response_data = response.json()
+#                 if response_data.get('error'):
+#                     print(f"Error uploading file: {response_data['error']}")
+#                     return JsonResponse({'success': False, 'error': response_data['error']})
+
+#                 # Construct the public URL of the uploaded image
+#                 image_url = f"{SUPABASE_URL}/storage/v1/object/public/images/{image_path}"
+
+#             except Exception as e:
+#                 # Handle any exceptions during the upload process
+#                 print(f"Exception during file upload: {e}")
+#                 return JsonResponse({'success': False, 'error': str(e)})
+            
+#             # Check if the product already exists
+#             if Product.objects.filter(name=product_name).exists():
+#                 return JsonResponse({'error': {'message': 'The resource already exists'}}, status=400)
+        
+            
+#         else:
+#             image_url = None
+
+#         # Create the product in the database using Supabase
+#         product_data = {
+#             'name': name,
+#             'description': description,
+#             'price': price,
+#             'image_url': image_url,
+#             'created_at': now_iso,
+#             'updated_at' : now_iso,
+
+#         }
+
+#         # Insert the product into the Supabase table
+#         response = supabase.table('yr_app_product').insert(product_data).execute()
+
+#         # Check for errors in the response
+#         if isinstance(response.data, list) and len(response.data) > 0:
+#             # If the response is a list and contains data, the insert was successful
+#             return JsonResponse({"message": "Product submitted successfully!"})
+#         elif isinstance(response.data, dict) and response.data.get('error'):
+#             # If the response is a dictionary and contains an error
+#             print("Error inserting product:", response.data['error'])
+#             return JsonResponse({'success': False, 'error': response.data['error']})
+#         else:
+#             # Handle unexpected response structure
+#             print("Unexpected response structure:", response.data)
+#             return JsonResponse({'success': False, 'error': 'Unknown error occurred'})
+
+#     return render(request, "upload.html")
+
+
 def submit_product(request):
     if request.method == "POST":
         # Retrieve form data
         name = request.POST.get("productName", "").strip()
         description = request.POST.get("productDescription", "").strip()
-       # Convert to float. Ensure proper conversion; consider using Decimal for accuracy.
+
+        # Convert to float. Ensure proper conversion; consider using Decimal for accuracy.
         try:
             price = float(request.POST.get("productPrice", "0").strip())
         except ValueError:
             return JsonResponse({'success': False, 'error': 'Invalid price format'})
+        
         image = request.FILES.get("productImage")
+
+        # Check if the product already exists
+        if Product.objects.filter(name=name).exists():
+            return JsonResponse({'error': {'message': 'The resource already exists'}}, status=400)
 
         if image:
             # Sanitize the product name and original filename
             sanitized_product_name = sanitize_filename(name.lower())
-            sanitized_file_name = sanitize_filename(image.name)
+            # sanitized_file_name = sanitize_filename(image.name)
 
             # Combine product name with the original file name
-            unique_file_name = f"{sanitized_product_name}_{sanitized_file_name}"
+            unique_file_name = f"{sanitized_product_name}"
 
             # URL-encode the unique file name
             unique_file_name_encoded = urllib.parse.quote(unique_file_name)
@@ -117,9 +213,12 @@ def submit_product(request):
                 # Handle any exceptions during the upload process
                 print(f"Exception during file upload: {e}")
                 return JsonResponse({'success': False, 'error': str(e)})
+        
         else:
             image_url = None
 
+        now_iso = datetime.datetime.now().isoformat()
+        
         # Create the product in the database using Supabase
         product_data = {
             'name': name,
@@ -127,8 +226,7 @@ def submit_product(request):
             'price': price,
             'image_url': image_url,
             'created_at': now_iso,
-            'updated_at' : now_iso,
-
+            'updated_at': now_iso,
         }
 
         # Insert the product into the Supabase table
@@ -140,13 +238,15 @@ def submit_product(request):
             return JsonResponse({"message": "Product submitted successfully!"})
         elif isinstance(response.data, dict) and response.data.get('error'):
             # If the response is a dictionary and contains an error
+            if response.data['error'] == 'Duplicate':
+                return JsonResponse({'error': {'message': 'The resource already exists'}}, status=400)
             print("Error inserting product:", response.data['error'])
-            return JsonResponse({'success': False, 'error': response.data['error']})
+            return JsonResponse({'success': False, 'error': response.data['error']}, status=400)
         else:
             # Handle unexpected response structure
             print("Unexpected response structure:", response.data)
-            return JsonResponse({'success': False, 'error': 'Unknown error occurred'})
-
+            return JsonResponse({'success': False, 'error': 'Unknown error occurred'}, status=500)
+    
     return render(request, "upload.html")
 
 
