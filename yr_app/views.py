@@ -362,3 +362,18 @@ def delete_product(request, product_id):
         return JsonResponse({'message': 'Product deleted successfully.'}, status=200)
     except Product.DoesNotExist:
         return JsonResponse({'error': 'Product not found.'}, status=404)
+    
+
+def edit_product(request, product_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            product = get_object_or_404(Product, id=product_id)
+            product.name = data.get('name')
+            product.description = data.get('description')
+            product.price = data.get('price')
+            product.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    return JsonResponse({'success': False}, status=400)

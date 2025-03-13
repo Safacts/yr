@@ -506,6 +506,38 @@
             transform: scale(1.05); /* Slightly enlarge the button */
         }
 
+        /* The Pop-up form */
+        .popup-form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        /* Pop-up content */
+        .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 400px;
+        max-width: 90%;
+        }
+
+        /* Close button */
+        .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        }
+
 
     </style>
 </head>
@@ -623,9 +655,21 @@
                 <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
             </div>
           </div>
+         <!-- Edit form -->
+         <div id="editForm{{ product.id }}" class="popup-form" style="display: none;">
+            <div class="popup-content">
+              <span class="close" onclick="closeEditForm('{{ product.id }}')">&times;</span>
+              <h2>Edit Product</h2>
+              <input type="text" id="editName{{ product.id }}" placeholder="New Product Name">
+              <textarea id="editDescription{{ product.id }}" placeholder="New Product Description"></textarea><br>
+              <input type="number" id="editPrice{{ product.id }}" placeholder="New Product Price">
+              <button onclick="saveChanges('{{ product.id }}')">Save</button>
+            </div>
+          </div>
           <!-- Metadata panel for admin actions (hidden by default) -->
           <div class="metadata-panel admin-only">
-            <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
+            
+            <button class="deleteProduct" onclick="openEditForm('{{ product.id }}', '{{ product.name }}', '{{ product.description }}', '{{ product.price }}')" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
             <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor=' #ff0000';" onmouseout="this.style.backgroundColor='#333';">Delete</button>
               <p>Set Display</p>
               <p>Updated: {{ product.updated_at }}</p>
@@ -994,6 +1038,67 @@
         }
         return cookieValue;
     }
+
+    function openEditForm(productId) {
+        const editForm = document.getElementById(`editForm${productId}`);
+        editForm.style.display = 'flex';
+      
+        const productName = document.querySelector(`#product${productId} .product-info h3`).innerText;
+        const productDescription = document.querySelector(`#product${productId} .product-info p`).innerText;
+        const productPrice = document.querySelector(`#product${productId} .product-info h3`).innerText.replace('₹', '');
+      
+        document.getElementById(`editName${productId}`).value = productName;
+        document.getElementById(`editDescription${productId}`).value = productDescription;
+        document.getElementById(`editPrice${productId}`).value = productPrice;
+      }
+      
+      function closeEditForm(productId) {
+        const editForm = document.getElementById(`editForm${productId}`);
+        editForm.style.display = 'none';
+      }
+      
+      async function saveChanges(productId) {
+        const newName = document.getElementById(`editName${productId}`).value;
+        const newDescription = document.getElementById(`editDescription${productId}`).value;
+        const newPrice = document.getElementById(`editPrice${productId}`).value;
+      
+        const response = await fetch(`/products/edit/${productId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ name: newName, description: newDescription, price: newPrice })
+        });
+      
+        const data = await response.json();
+        if (data.success) {
+          document.querySelector(`#product${productId} .product-info h3`).innerText = newName;
+          document.querySelector(`#product${productId} .product-info p`).innerText = newDescription;
+          document.querySelector(`#product${productId} .product-info .price`).innerText = `₹${newPrice}`;
+          closeEditForm(productId);
+        } else {
+          console.error('Failed to save changes.');
+        }
+      }  
+      
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      
+  
+      
 
       
       
