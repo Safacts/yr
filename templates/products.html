@@ -548,75 +548,21 @@
             box-sizing: border-box;
             font-size: 16px;
         }
+        .form-box {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* Rounded edges */
+            width: 100%; /* Fill the available space */
+            max-width: 300px; /* Limit width to prevent excessive stretching */
+            margin-top: 15px; /* Space above the element */
+        
+        }
+        
+ 
 
-        /* The Pop-up form */
-        .popup-form {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Pop-up content */
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 400px;
-            max-width: 90%;
-        }
-        
-        /* Close button */
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        /* Form groups */
-        .form-group {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        
-        /* Adjusted styles for description box */
-        #editDescription {
-            width: 100%;
-            height: 100px;
-            resize: vertical;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #f9f9f9;
-        }
-        
-        /* Adjusted styles for price box */
-        #editPrice {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #f9f9f9;
-        }
         
 
+        
 
     </style>
 </head>
@@ -705,9 +651,9 @@
                 <span class="close" onclick="closeEditForm('{{ product.id }}')">&times;</span>
                 <h2>Edit Product</h2>
                 <input type="text" id="editName{{ product.id }}" placeholder="New Product Name">
-                <textarea id="editDescription{{ product.id }}" placeholder="New Product Description"></textarea><br>
-                <input type="number" id="editPrice{{ product.id }}" placeholder="New Product Price">
-                <button class="deleteProduct" onclick="saveChanges('{{ product.id }}')">Save</button>
+                <textarea class="form-box" id="editDescription{{ product.id }}" placeholder="New Product Description"></textarea><br>
+                <input class="form-box" type="number" id="editPrice{{ product.id }}" placeholder="New Product Price">
+                <button class="deleteProduct" onclick="saveChanges('{{ product.id }}')" style="margin-top: 15px">Save</button>
                 </div>
             </div>
             <!-- Metadata panel for admin actions (hidden by default) -->
