@@ -506,37 +506,116 @@
             transform: scale(1.05); /* Slightly enlarge the button */
         }
 
+        
         /* The Pop-up form */
         .popup-form {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Pop-up content */
         .popup-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        width: 400px;
-        max-width: 90%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
         }
 
         /* Close button */
         .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
-        cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
         }
+
+        .form-group {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* The Pop-up form */
+        .popup-form {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Pop-up content */
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
+        }
+        
+        /* Close button */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        /* Form groups */
+        .form-group {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        /* Adjusted styles for description box */
+        #editDescription {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+        
+        /* Adjusted styles for price box */
+        #editPrice {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+        
 
 
     </style>
@@ -603,86 +682,52 @@
             <!-- Files will be dynamically added here -->
         </ul>
     </div>
-{% comment %} 
-<div class="products">
-  <div id="productsContainer" style="display: flex; flex-wrap: wrap; gap: 10px;">
-    {% for product in products %}
-    
-        <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
-           
-            <!-- Both classes included: .arrow for styling and .admin-toggle for abstraction -->
-            <div class="arrow admin-only" onclick="this.classList.toggle('active')"></div>
-           
-            <img src="{{ product.image_url }}" alt="{{ product.name }}" >
-            
-            <div class="product-info">
-                <h3>{{ product.name }} </h3>
-                <p>{{ product.description }}</p>
-                <p><h3>&#8377;{{ product.price }}</h3></p>
-                
-                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
-                
-            </div>
-        </div>
-        <!-- This new panel will show metadata and admin actions -->
-        <div class="metadata-panel admin-only">
-            <p>Edit</p>
-            <p>Delete</p>
-            <p>Set Display</p>
-            <p>Updated: [date]</p>
-            <p>Uploaded: [date]</p>
-            <p>No. of Orders: [number]</p>
-        </div>
         
-        
-    {% empty %}
-        <p>No products available.</p>
-    {% endfor %}
-</div>  {% endcomment %}
-<div class="products"> 
-    <div id="productsContainer" style="display: flex; flex-wrap: wrap; gap: 10px;">
-      {% for product in products %}
-        <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
-          <!-- Wrap original content -->
-          <div class="card-content">
-            <!-- Arrow: visible only in admin mode -->
-            <div class="arrow admin-only" onclick="handleArrowClick(this)"></div>
-            <img src="{{ product.image_url }}" alt="{{ product.name }}">
-            <div class="product-info">
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <p><h3>&#8377;{{ product.price }}</h3></p>
-                <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
+    <div class="products"> 
+        <div id="productsContainer" style="display: flex; flex-wrap: wrap; gap: 10px;">
+        {% for product in products %}
+            <div class="product-card" id="product{{ product.id }}" data-replace-emoji="true">
+            <!-- Wrap original content -->
+            <div class="card-content">
+                <!-- Arrow: visible only in admin mode -->
+                <div class="arrow admin-only" onclick="handleArrowClick(this)"></div>
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <h3 class="price">&#8377;{{ product.price }}</h3>
+                    <button class="add-to-cart-button" onclick="redirectToWhatsApp('product{{ product.id }}')">Order</button>
+                </div>
             </div>
-          </div>
-         <!-- Edit form -->
-         <div id="editForm{{ product.id }}" class="popup-form" style="display: none;">
-            <div class="popup-content">
-              <span class="close" onclick="closeEditForm('{{ product.id }}')">&times;</span>
-              <h2>Edit Product</h2>
-              <input type="text" id="editName{{ product.id }}" placeholder="New Product Name">
-              <textarea id="editDescription{{ product.id }}" placeholder="New Product Description"></textarea><br>
-              <input type="number" id="editPrice{{ product.id }}" placeholder="New Product Price">
-              <button onclick="saveChanges('{{ product.id }}')">Save</button>
+            <!-- Edit form -->
+            <div id="editForm{{ product.id }}" class="popup-form" style="display: none;">
+                <div class="popup-content">
+                <span class="close" onclick="closeEditForm('{{ product.id }}')">&times;</span>
+                <h2>Edit Product</h2>
+                <input type="text" id="editName{{ product.id }}" placeholder="New Product Name">
+                <textarea id="editDescription{{ product.id }}" placeholder="New Product Description"></textarea><br>
+                <input type="number" id="editPrice{{ product.id }}" placeholder="New Product Price">
+                <button class="deleteProduct" onclick="saveChanges('{{ product.id }}')">Save</button>
+                </div>
             </div>
-          </div>
-          <!-- Metadata panel for admin actions (hidden by default) -->
-          <div class="metadata-panel admin-only">
-            
-            <button class="deleteProduct" onclick="openEditForm('{{ product.id }}', '{{ product.name }}', '{{ product.description }}', '{{ product.price }}')" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
-            <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor=' #ff0000';" onmouseout="this.style.backgroundColor='#333';">Delete</button>
-              <p>Set Display</p>
-              <p>Updated: {{ product.updated_at }}</p>
-              <p>Uploaded: {{ product.created_at }}</p> 
-              <p>No. of Orders: {{ product.order_count }}</p>
-          </div>
+            <!-- Metadata panel for admin actions (hidden by default) -->
+            <div class="metadata-panel admin-only">
+                
+                <button class="deleteProduct" onclick="openEditForm('{{ product.id }}', '{{ product.name }}', '{{ product.description }}', '{{ product.price }}')" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
+                <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor=' #ff0000';" onmouseout="this.style.backgroundColor='#333';">Delete</button>
+                {% comment %} <button class="deleteProduct" onclick="deleteProduct('{{ product.id }}')">Delete</button> {% endcomment %}
+                <p>Set Display</p>
+                <p>Updated: {{ product.updated_at }}</p>
+                <p>Uploaded: {{ product.created_at }}</p> 
+                <p>No. of Orders: {{ product.order_count }}</p>
+            </div>
+            </div>
+        {% empty %}
+            <p>No products available.</p>
+        {% endfor %}
         </div>
-      {% empty %}
-        <p>No products available.</p>
-      {% endfor %}
     </div>
-  </div>
-    
+        
 
 </div>
 
@@ -1022,30 +1067,13 @@
         }
     }
     
-    // Function to get CSRF token from cookies
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
     function openEditForm(productId) {
         const editForm = document.getElementById(`editForm${productId}`);
         editForm.style.display = 'flex';
       
         const productName = document.querySelector(`#product${productId} .product-info h3`).innerText;
         const productDescription = document.querySelector(`#product${productId} .product-info p`).innerText;
-        const productPrice = document.querySelector(`#product${productId} .product-info h3`).innerText.replace('₹', '');
+        const productPrice = document.querySelector(`#product${productId} .product-info .price`).innerText.replace('₹', '');
       
         document.getElementById(`editName${productId}`).value = productName;
         document.getElementById(`editDescription${productId}`).value = productDescription;
@@ -1056,6 +1084,19 @@
         const editForm = document.getElementById(`editForm${productId}`);
         editForm.style.display = 'none';
       }
+
+      // Close edit form when Esc is pressed
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const openForms = document.querySelectorAll('.popup-form');
+                openForms.forEach(form => {
+                    if (form.style.display === 'flex') {
+                        form.style.display = 'none';
+                    }
+                });
+            }
+        });
+
       
       async function saveChanges(productId) {
         const newName = document.getElementById(`editName${productId}`).value;
@@ -1081,24 +1122,24 @@
           console.error('Failed to save changes.');
         }
       }  
-      
-      function getCookie(name) {
+    
+    
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
-          const cookies = document.cookie.split(';');
-          for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
-          }
         }
         return cookieValue;
-      }
-      
-  
-      
+    }
 
       
       
