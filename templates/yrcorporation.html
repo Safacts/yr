@@ -619,7 +619,7 @@
                 <span class="welcome-text"></span> to our Keychain Collection!
             </h2>
             <div class="search-container">
-                <input type="text" id="search-bar" class="search-bar" placeholder="Search for keychains..." onkeyup="searchProducts()">
+                <input type="text" id="search-bar" class="search-bar" placeholder="Search for keychains..." onkeyup="searchProducts()" oninput="filterProducts()">
                 <button type="submit" id="search-button" class="search-button"><i class="fa fa-search"></i></button>
             </div>
         </div>
@@ -670,6 +670,8 @@
             
         </section>
     </div>
+
+
    
     
     <div class="spacer">
@@ -829,7 +831,129 @@
                         });
                 }
             }
-                                                
+
+            // Function to fetch and display search results or all products in the products container
+            function filterProducts() {
+                const query = document.getElementById('searchInput').value.trim();
+                let url = '/search-products/'; // Default URL for search
+
+                // If the search box is empty, change the URL to fetch all products
+                if (!query) {
+                    url = '/all-products/'; // Adjust this URL to match the endpoint for fetching all products
+                } else {
+                    url += `?query=${encodeURIComponent(query)}`;
+                }
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.getElementById('productsContainer');
+
+                        if (!data.products || data.products.length === 0) {
+                            container.innerHTML = '<p>No products found.</p>';
+                        } else {
+                            // When fewer than 4 items, center them; otherwise, space them out.
+                            const justifyContent = data.products.length < 4 ? "center" : "center";
+
+                            // Build the HTML string with the inline CSS inserted only once.
+                            let html = `
+                                <style>
+                                    .products {
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        justify-content: ${justifyContent};
+                                        gap: 10px;
+                                        padding: 20px;
+                                        margin-bottom: 50px;
+                                    }
+                                    .product-card {
+                                        flex: 0 0 300px;
+                                        width: 300px;
+                                        height: 540px;
+                                        background-color: #fff;
+                                        border-radius: 10px;
+                                        overflow: hidden;
+                                        transition: transform 0.3s ease;
+                                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                        margin: 10px;
+                                        animation: fade-in 1s ease-out both;
+                                        position: relative; /* for absolute positioning of the button */
+                                    }
+                                    .product-card img {
+                                        width: 100%;
+                                        height: 390px;
+                                        object-fit: contain;
+                                        display: block;
+                                    }
+                                    .product-info {
+                                        padding: 35px;
+                                        text-align: left;
+                                        height: 150px;
+                                    }
+                                    .product-info h3 {
+                                        margin: 0 0 5px;
+                                        font-size: 1.3rem;
+                                        color: #333;
+                                    }
+                                    .product-info p {
+                                        margin: 0;
+                                        color: #666;
+                                        font-size: 0.9rem;
+                                    }
+                                    .price {
+                                        font-size: 1.3rem;
+                                        margin: 10px 0 0;
+                                        color: #333;
+                                    }
+                                    .product-info button {
+                                        background-color: #333;
+                                        color: #fff;
+                                        border: none;
+                                        padding: 10px 20px;
+                                        border-radius: 5px;
+                                        cursor: pointer;
+                                        transition: background-color 0.3s ease;
+                                        position: absolute;
+                                        bottom: 15px;
+                                        right: 15px;
+                                    }
+                                    .product-info button:hover {
+                                        background-color: #444;
+                                    }
+                                    @keyframes fade-in {
+                                        0% {
+                                            opacity: 0;
+                                            transform: translateY(20px);
+                                        }
+                                        100% {
+                                            opacity: 1;
+                                            transform: translateY(0);
+                                        }
+                                    }
+                                </style>
+                                <div class="products">
+                            `;
+                            data.products.forEach(product => {
+                                html += `
+                                    <div class="product-card" id="product${product.id}" data-replace-emoji="true">
+                                        ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}">` : ''}
+                                        <div class="product-info">
+                                            <h3>${product.name}</h3>
+                                            <p>${product.description}</p>
+                                            <h3 class="price">&#8377;${product.price}</h3>
+                                            <button class="add-to-cart-button" onclick="redirectToWhatsApp('product${product.id}')">Order</button>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            html += `</div>`;
+                            container.innerHTML = html;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+                                                        
         </script>
         
     </body>

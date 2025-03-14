@@ -661,8 +661,6 @@
                 
                 <button class="deleteProduct" onclick="openEditForm('{{ product.id }}', '{{ product.name }}', '{{ product.description }}', '{{ product.price }}')" style="background-color: #333;" onmouseover="this.style.backgroundColor='lightgreen';" onmouseout="this.style.backgroundColor='#333';">Edit</button>
                 <button class="deleteProduct" style="background-color: #333;" onmouseover="this.style.backgroundColor=' #ff0000';" onmouseout="this.style.backgroundColor='#333';">Delete</button>
-                {% comment %} <button class="deleteProduct" onclick="deleteProduct('{{ product.id }}')">Delete</button> {% endcomment %}
-                <p>Set Display</p>
                 <p>Updated: {{ product.updated_at }}</p>
                 <p>Uploaded: {{ product.created_at }}</p> 
                 <p>No. of Orders: {{ product.order_count }}</p>
